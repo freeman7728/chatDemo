@@ -14,7 +14,7 @@ func NewRouter() *gin.Engine {
 			c.JSON(200, "success")
 		})
 		v1.POST("/register", api.UserApi{}.UserRegister)
-		v1.GET("ws", service.Handler)
+		v1.GET("/ws", service.Handler)
 	}
 	return r
 }
