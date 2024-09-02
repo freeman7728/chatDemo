@@ -39,9 +39,9 @@ type Broadcast struct {
 }
 
 type ClientManager struct {
-	Clients    map[string]*Client
-	Broadcast  chan *Broadcast
-	Reply      chan *Client
+	Clients   map[string]*Client
+	Broadcast chan *Broadcast
+	//Reply      chan *Client
 	Register   chan *Client
 	Unregister chan *Client
 }
@@ -54,10 +54,10 @@ type Message struct {
 
 // Manager 包级变量，执行main函数之前就会进行初始化
 var Manager = ClientManager{
-	Clients:    make(map[string]*Client), // 参与连接的用户，出于性能的考虑，需要设置最大连接数
-	Broadcast:  make(chan *Broadcast),
-	Register:   make(chan *Client),
-	Reply:      make(chan *Client),
+	Clients:   make(map[string]*Client), // 参与连接的用户，出于性能的考虑，需要设置最大连接数
+	Broadcast: make(chan *Broadcast),
+	Register:  make(chan *Client),
+	//Reply:      make(chan *Client),
 	Unregister: make(chan *Client),
 }
 

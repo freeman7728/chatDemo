@@ -85,8 +85,5 @@ func (manager *ClientManager) Start() {
 				//}
 			}
 		}
-
-		//TODO 消息的广播/传递
-
 	}
 }
