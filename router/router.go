@@ -14,6 +14,7 @@ func NewRouter() *gin.Engine {
 			c.JSON(200, "success")
 		})
 		v1.POST("/register", api.UserApi{}.UserRegister)
+		//获取升级连接的请求
 		v1.GET("/ws", service.Handler)
 	}
 	return r
