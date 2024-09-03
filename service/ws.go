@@ -2,6 +2,7 @@ package service
 
 import (
 	"chat/cache"
+	"chat/conf"
 	"chat/pkg/e"
 	"encoding/json"
 	"fmt"
@@ -9,6 +10,7 @@ import (
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -27,7 +29,9 @@ type ReplyMsg struct {
 }
 
 type Client struct {
+	Uid    string
 	ID     string
+	SendID string
 	Socket *websocket.Conn
 	Send   chan []byte
 }
@@ -82,7 +86,7 @@ func Handler(c *gin.Context) {
 	}
 	//创建客户端对象，把连接赋予客户端对象
 	client := &Client{
-		ID:     uid, //当前消息的发送者和接收者
+		Uid:    uid,
 		Socket: conn,
 		Send:   make(chan []byte),
 	}
@@ -139,6 +143,33 @@ func (c *Client) Read() {
 				Client:     c,
 				Message:    []byte(sendMsg.Content),
 				ReceiverId: sendMsg.ReceiverId,
+			}
+		} else if sendMsg.Type == 2 { //拉取历史消息
+			timeT, err := strconv.Atoi(sendMsg.Content) // 传送来时间
+			if err != nil {
+				timeT = 999999999
+			}
+			c.ID = CreatId(c.Uid, sendMsg.ReceiverId)
+			c.SendID = CreatId(sendMsg.ReceiverId, c.Uid)
+			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID, int64(timeT), 10)
+			if len(results) > 10 {
+				results = results[:10]
+			} else if len(results) == 0 {
+				replyMsg := ReplyMsg{
+					Code:    e.WebsocketEnd,
+					Content: "到底了",
+				}
+				msg, _ := json.Marshal(replyMsg)
+				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
+				continue
+			}
+			for _, result := range results {
+				replyMsg := ReplyMsg{
+					From:    result.From,
+					Content: fmt.Sprintf("%s", result.Msg),
+				}
+				msg, _ := json.Marshal(replyMsg)
+				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
 			}
 		}
 	}
