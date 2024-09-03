@@ -72,9 +72,7 @@ func CreatId(uid, toUid string) string {
 
 func Handler(c *gin.Context) {
 	//解析url变量
-	//把toUid放到消息体内部，而不是url
 	uid := c.Query("uid")
-	//toUid := c.Query("toUid")
 	conn, err := (&websocket.Upgrader{ //新建websocket对象
 		CheckOrigin: func(r *http.Request) bool {
 			return true
@@ -96,6 +94,14 @@ func Handler(c *gin.Context) {
 	go client.Write()
 }
 
+/*
+	把客户端发送来的消息{
+		发送者，
+		接收者，
+		消息体
+	}转发到broadcast通道中，再由broadcast通道去寻找接收者，观察其是否在线
+*/
+
 // conn从客户端读
 func (c *Client) Read() {
 	defer func() {
@@ -114,13 +120,6 @@ func (c *Client) Read() {
 			_ = c.Socket.Close()
 			return
 		}
-		/*
-			把客户端发送来的消息{
-				发送者，
-				接收者，
-				消息体
-			}转发到broadcast通道中，再由broadcast通道去寻找接收者，观察其是否在线
-		*/
 		if sendMsg.Type == 1 {
 			r1, _ := cache.RedisClient.Get(c.ID).Result()
 			r2, _ := cache.RedisClient.Get(c.ID).Result()

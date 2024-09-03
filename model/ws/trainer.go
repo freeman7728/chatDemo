@@ -13,3 +13,12 @@ type Result struct {
 	Content   interface{}
 	From      string
 }
+
+//数据库的集合名称为senderId->receiverId
+/*
+	获取下线时，对方发来的消息
+	{
+		"type":2,
+		"receiver":"1"
+	}
+*/
