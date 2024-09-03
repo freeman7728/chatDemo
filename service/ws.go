@@ -15,8 +15,9 @@ import (
 const month = 60 * 60 * 24 * 30
 
 type SendMsg struct {
-	Type    int    `json:"type"`
-	Content string `json:"content"`
+	Type       int    `json:"type"`
+	Content    string `json:"content"`
+	ReceiverId string `json:"receiver"`
 }
 
 type ReplyMsg struct {
@@ -27,15 +28,15 @@ type ReplyMsg struct {
 
 type Client struct {
 	ID     string
-	SendId string
 	Socket *websocket.Conn
 	Send   chan []byte
 }
 
 type Broadcast struct {
-	Client  *Client
-	Message []byte
-	Type    string `json:"type"`
+	Client     *Client
+	Message    []byte
+	Type       string `json:"type"`
+	ReceiverId string `json:"receiver"`
 }
 
 type ClientManager struct {
@@ -67,8 +68,9 @@ func CreatId(uid, toUid string) string {
 
 func Handler(c *gin.Context) {
 	//解析url变量
+	//TODO 把toUid放到消息体内部，而不是url
 	uid := c.Query("uid")
-	toUid := c.Query("toUid")
+	//toUid := c.Query("toUid")
 	conn, err := (&websocket.Upgrader{ //新建websocket对象
 		CheckOrigin: func(r *http.Request) bool {
 			return true
@@ -80,8 +82,7 @@ func Handler(c *gin.Context) {
 	}
 	//创建客户端对象，把连接赋予客户端对象
 	client := &Client{
-		ID:     CreatId(uid, toUid), //当前消息的发送者和接收者
-		SendId: CreatId(toUid, uid),
+		ID:     uid, //当前消息的发送者和接收者
 		Socket: conn,
 		Send:   make(chan []byte),
 	}
@@ -118,7 +119,7 @@ func (c *Client) Read() {
 		*/
 		if sendMsg.Type == 1 {
 			r1, _ := cache.RedisClient.Get(c.ID).Result()
-			r2, _ := cache.RedisClient.Get(c.SendId).Result()
+			r2, _ := cache.RedisClient.Get(c.ID).Result()
 			if r1 >= "3" && r2 == "" {
 				replyMsg := ReplyMsg{
 					Code:    e.WebsocketLimit,
@@ -134,8 +135,9 @@ func (c *Client) Read() {
 			}
 			log.Println(c.ID, "发送消息", sendMsg.Content)
 			Manager.Broadcast <- &Broadcast{
-				Client:  c,
-				Message: []byte(sendMsg.Content),
+				Client:     c,
+				Message:    []byte(sendMsg.Content),
+				ReceiverId: sendMsg.ReceiverId,
 			}
 		}
 	}

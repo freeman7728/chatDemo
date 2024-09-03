@@ -38,7 +38,7 @@ func (manager *ClientManager) Start() {
 		case broadcast := <-manager.Broadcast:
 			//拿到接收者对象和消息体
 			message := broadcast.Message
-			sendId := broadcast.Client.SendId
+			sendId := broadcast.ReceiverId
 			flag := false
 			//遍历在线用户map
 			for id, conn := range Manager.Clients {
