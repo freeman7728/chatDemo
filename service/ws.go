@@ -68,7 +68,7 @@ func CreatId(uid, toUid string) string {
 
 func Handler(c *gin.Context) {
 	//解析url变量
-	//TODO 把toUid放到消息体内部，而不是url
+	//把toUid放到消息体内部，而不是url
 	uid := c.Query("uid")
 	//toUid := c.Query("toUid")
 	conn, err := (&websocket.Upgrader{ //新建websocket对象
@@ -134,6 +134,7 @@ func (c *Client) Read() {
 				_, _ = cache.RedisClient.Expire(c.ID, time.Hour*24*30*3).Result()
 			}
 			log.Println(c.ID, "发送消息", sendMsg.Content)
+			//取出ReceiverId字段，发送到broadcast通道
 			Manager.Broadcast <- &Broadcast{
 				Client:     c,
 				Message:    []byte(sendMsg.Content),
