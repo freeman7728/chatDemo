@@ -1,6 +1,7 @@
 package service
 
 import (
+	"chat/conf"
 	"chat/pkg/e"
 	"encoding/json"
 	"fmt"
@@ -54,7 +55,7 @@ func (manager *ClientManager) Start() {
 					delete(Manager.Clients, sendId)
 				}
 			}
-			//id := broadcast.Client.ID
+			id := broadcast.Client.ID
 			//在线
 			if flag {
 				log.Println("对方在线")
@@ -66,10 +67,10 @@ func (manager *ClientManager) Start() {
 				//告诉发送者，接收者在线
 				_ = broadcast.Client.Socket.WriteMessage(websocket.TextMessage, msg)
 				//TODO 聊天记录插入数据库
-				//err = InsertMsg(conf.MongoDBName, id, string(message), 1, int64(3*month))
-				//if err != nil {
-				//	fmt.Println("InsertOneMsg Err", err)
-				//}
+				err := InsertMsg(conf.MongoDBName, id, string(message), 1, int64(3*month))
+				if err != nil {
+					fmt.Println("InsertOneMsg Err", err)
+				}
 			} else {
 				log.Println("对方不在线")
 				replyMsg := ReplyMsg{
