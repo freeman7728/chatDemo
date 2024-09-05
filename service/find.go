@@ -4,7 +4,6 @@ import (
 	"chat/conf"
 	"chat/model/ws"
 	"context"
-	"fmt"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"sort"
 	"time"
@@ -43,7 +42,6 @@ func FindMany(database string, sendId string, id string, time int64, pageSize in
 		options.Find())
 	idTimeCursor, err := idCollection.Find(context.TODO(),
 		options.Find())
-	fmt.Println("len = ", sendIdTimeCursor.RemainingBatchLength())
 	err = sendIdTimeCursor.All(context.TODO(), &resultsYou) // sendId 对面发过来的
 	err = idTimeCursor.All(context.TODO(), &resultsMe)      // Id 发给对面的
 	results, _ = AppendAndSort(resultsMe, resultsYou)
@@ -52,28 +50,18 @@ func FindMany(database string, sendId string, id string, time int64, pageSize in
 
 func AppendAndSort(resultsMe, resultsYou []ws.Trainer) (results []ws.Result, err error) {
 	for _, r := range resultsMe {
-		sendSort := SendSortMsg{
-			Content:  r.Content,
-			Read:     r.Read,
-			CreateAt: r.StartTime,
-		}
 		result := ws.Result{
 			StartTime: r.StartTime,
-			Msg:       fmt.Sprintf("%v", sendSort),
 			From:      "me",
+			Data:      r,
 		}
 		results = append(results, result)
 	}
 	for _, r := range resultsYou {
-		sendSort := SendSortMsg{
-			Content:  r.Content,
-			Read:     r.Read,
-			CreateAt: r.StartTime,
-		}
 		result := ws.Result{
 			StartTime: r.StartTime,
-			Msg:       fmt.Sprintf("%v", sendSort),
 			From:      "you",
+			Data:      r,
 		}
 		results = append(results, result)
 	}

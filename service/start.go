@@ -42,16 +42,13 @@ func (manager *ClientManager) Start() {
 			sendId := broadcast.ReceiverId
 			flag := false
 			//遍历在线用户map
-			for id, conn := range Manager.Clients {
-				if id != sendId {
-					continue
-				}
+			if _, flag = Manager.Clients[sendId]; flag {
 				select {
 				//把消息体发送给接收者对象的Send通道，并且标记接收者为在线状态
-				case conn.Send <- message:
+				case Manager.Clients[sendId].Send <- message:
 					flag = true
 				default:
-					close(conn.Send)
+					close(Manager.Clients[sendId].Send)
 					delete(Manager.Clients, sendId)
 				}
 			}

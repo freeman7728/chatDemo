@@ -2,6 +2,7 @@ package router
 
 import (
 	"chat/api"
+	"chat/middleware"
 	"chat/service"
 	"github.com/gin-gonic/gin"
 )
@@ -15,7 +16,7 @@ func NewRouter() *gin.Engine {
 		})
 		v1.POST("/register", api.UserApi{}.UserRegister)
 		//获取升级连接的请求
-		v1.GET("/ws", service.Handler)
+		v1.GET("/ws", middleware.CheckUserMiddleware, service.Handler)
 	}
 	return r
 }

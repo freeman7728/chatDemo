@@ -8,6 +8,7 @@ import (
 // User 用户模型
 type User struct {
 	gorm.Model
+	ID             uint `gorm:"unique"`
 	UserName       string
 	PasswordDigest string
 	Email          string //`gorm:"unique"`
@@ -33,4 +34,9 @@ func (u *User) SetPassword(password string) error {
 func (u *User) CheckPassword(password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(u.PasswordDigest), []byte(password))
 	return err == nil
+}
+
+func (u *User) CheckUid() bool {
+	result := DB.First(&User{}, "id = ?", u.ID)
+	return result.RowsAffected > 0
 }

@@ -163,11 +163,7 @@ func (c *Client) Read() {
 				continue
 			}
 			for _, result := range results {
-				replyMsg := ReplyMsg{
-					From:    result.From,
-					Content: fmt.Sprintf("%s", result.Msg),
-				}
-				msg, _ := json.Marshal(replyMsg)
+				msg, _ := json.Marshal(result)
 				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
 			}
 		}
