@@ -7,7 +7,7 @@ import (
 
 const (
 	// ExpireDuration 20秒
-	ExpireDuration = 20 * time.Second
+	ExpireDuration = 3600 * time.Second
 	JwtSecretKey   = `ihawe98fu98234auth2`
 )
 
@@ -45,6 +45,7 @@ func GenerateToken(id int64, username string) (string, error) {
 // ParseToken 解析 token 并检查是否过期
 func ParseToken(tokenString string) (*MyClaims, error) {
 	// 解析 token
+	//ParseWithClaims 在被调用的时候，会自动检查exp，如果超时则Valid赋值false，并且函数会返回一个错误
 	token, err := jwt.ParseWithClaims(tokenString, &MyClaims{}, func(token *jwt.Token) (interface{}, error) {
 		// 返回密钥进行验证
 		return []byte(JwtSecretKey), nil
@@ -52,7 +53,6 @@ func ParseToken(tokenString string) (*MyClaims, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	if claims, ok := token.Claims.(*MyClaims); ok && token.Valid {
 		return claims, nil
 	} else {
