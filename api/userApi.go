@@ -24,3 +24,18 @@ func (UserApi) UserRegister(c *gin.Context) {
 	//TODO 传递对象给服务层
 	return
 }
+
+func (UserApi) UserLogin(c *gin.Context) {
+	//TODO 绑定参数
+	var userLoginService service.UserService
+
+	if err := c.ShouldBindBodyWithJSON(&userLoginService); err == nil {
+		resp := userLoginService.Login()
+		c.JSON(http.StatusOK, resp)
+	} else {
+		c.JSON(http.StatusBadRequest, err.Error())
+		log.Error(err)
+	}
+	//TODO 传递对象给服务层
+	return
+}

@@ -42,7 +42,7 @@ func Init() {
 	LoadMysql(file)
 	LoadMongoDb(file)
 	MongoDb()
-	dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8"}, "")
+	dsn := strings.Join([]string{DbUser, ":", DbPassWord, "@tcp(", DbHost, ":", DbPort, ")/", DbName, "?charset=utf8", "&parseTime=true"}, "")
 	model.Database(dsn)
 	cache.Init()
 	cache.Redis()

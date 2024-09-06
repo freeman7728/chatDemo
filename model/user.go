@@ -8,8 +8,8 @@ import (
 // User 用户模型
 type User struct {
 	gorm.Model
-	ID             uint `gorm:"unique"`
-	UserName       string
+	ID             uint   `gorm:"unique"`
+	UserName       string `gorm:"unique"`
 	PasswordDigest string
 	Email          string //`gorm:"unique"`
 	Avatar         string `gorm:"size:1000"`
@@ -32,8 +32,12 @@ func (u *User) SetPassword(password string) error {
 }
 
 func (u *User) CheckPassword(password string) bool {
+	res := DB.Where("user_name = ?", u.UserName).First(&u)
+	if res.RowsAffected == 0 {
+		return false //账号不存在
+	}
 	err := bcrypt.CompareHashAndPassword([]byte(u.PasswordDigest), []byte(password))
-	return err == nil
+	return err == nil //密码错误
 }
 
 func (u *User) CheckUid() bool {

@@ -3,6 +3,7 @@ package service
 import (
 	"chat/model"
 	"chat/pkg/e"
+	"chat/pkg/utils"
 	"chat/serializer"
 	log "github.com/sirupsen/logrus"
 )
@@ -12,7 +13,11 @@ type UserService struct {
 	PassWord string `json:"password"`
 }
 
-func (u UserService) UserRegisterService() (resp serializer.Response) {
+type UserLoginVo struct {
+	Token string `json:"token"`
+}
+
+func (u *UserService) UserRegisterService() (resp serializer.Response) {
 	//TODO 参数校验，然后传递给持久化
 	/*
 		TODO
@@ -47,5 +52,26 @@ func (u UserService) UserRegisterService() (resp serializer.Response) {
 	}
 	return serializer.Response{
 		Status: code, Msg: e.GetMsg(code),
+	}
+}
+
+// Login 用户登录逻辑
+func (u *UserService) Login() (resp serializer.Response) {
+	user := &model.User{
+		UserName: u.UserName,
+	}
+	if user.CheckPassword(u.PassWord) == true {
+		token, err := utils.GenerateToken(int64(user.ID), user.UserName)
+		if err != nil {
+			return serializer.Response{
+				Status: e.ERROR, Msg: "token生成失败", Data: nil,
+			}
+		}
+		return serializer.Response{
+			Status: e.SUCCESS, Msg: e.GetMsg(e.SUCCESS), Data: UserLoginVo{Token: token},
+		}
+	}
+	return serializer.Response{
+		Status: e.ERROR, Msg: "账号或者密码错误",
 	}
 }
