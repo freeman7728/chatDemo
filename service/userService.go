@@ -68,7 +68,9 @@ func (u *UserService) Login() (resp serializer.Response) {
 			}
 		}
 		return serializer.Response{
-			Status: e.SUCCESS, Msg: e.GetMsg(e.SUCCESS), Data: UserLoginVo{Token: token},
+			Status: e.SUCCESS,
+			Msg:    e.GetMsg(e.SUCCESS),
+			Data:   UserLoginVo{Token: token},
 		}
 	}
 	return serializer.Response{
