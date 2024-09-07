@@ -17,12 +17,9 @@ func NewRouter() *gin.Engine {
 		//获取升级连接的请求
 		v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
 	}
-	v2 := r.Group("/v2")
+	v2 := r.Group("/student")
 	{
-		v2.POST(
-			"/student/insert",
-			api.InsertHandler[model.Student],
-		)
+		CRUD[model.Student](v2, ":id")
 	}
 	testJwt := r.Group("/")
 	{
@@ -31,4 +28,9 @@ func NewRouter() *gin.Engine {
 		})
 	}
 	return r
+}
+
+func CRUD[T any](group *gin.RouterGroup, idParam string) *gin.RouterGroup {
+	group.POST("", api.InsertHandler[T])
+	return group
 }
