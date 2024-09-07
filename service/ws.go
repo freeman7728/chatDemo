@@ -17,9 +17,8 @@ import (
 const month = 60 * 60 * 24 * 30
 
 type SendMsg struct {
-	Type       int    `json:"type"`
-	Content    string `json:"content"`
-	ReceiverId string `json:"receiver"`
+	Type    int    `json:"type"`
+	Content string `json:"content"`
 }
 
 type ReplyMsg struct {
@@ -37,10 +36,9 @@ type Client struct {
 }
 
 type Broadcast struct {
-	Client     *Client
-	Message    []byte
-	Type       string `json:"type"`
-	ReceiverId string `json:"receiver"`
+	Client  *Client
+	Message []byte
+	Type    string `json:"type"`
 }
 
 type ClientManager struct {
@@ -73,6 +71,7 @@ func CreatId(uid, toUid string) string {
 func Handler(c *gin.Context) {
 	//解析url变量
 	uid := c.Query("uid")
+	touid := c.Query("touid")
 	conn, err := (&websocket.Upgrader{ //新建websocket对象
 		CheckOrigin: func(r *http.Request) bool {
 			return true
@@ -86,6 +85,8 @@ func Handler(c *gin.Context) {
 	client := &Client{
 		Uid:    uid,
 		Socket: conn,
+		ID:     CreatId(uid, touid),
+		SendID: CreatId(touid, uid),
 		Send:   make(chan []byte),
 	}
 	Manager.Register <- client //把客户端发送到在线用户通道
@@ -139,17 +140,14 @@ func (c *Client) Read() {
 			log.Println(c.ID, "发送消息", sendMsg.Content)
 			//取出ReceiverId字段，发送到broadcast通道
 			Manager.Broadcast <- &Broadcast{
-				Client:     c,
-				Message:    []byte(sendMsg.Content),
-				ReceiverId: sendMsg.ReceiverId,
+				Client:  c,
+				Message: []byte(sendMsg.Content),
 			}
 		} else if sendMsg.Type == 2 { //拉取历史消息
 			timeT, err := strconv.Atoi(sendMsg.Content) // 传送来时间
 			if err != nil {
 				timeT = 999999999
 			}
-			c.ID = CreatId(c.Uid, sendMsg.ReceiverId)
-			c.SendID = CreatId(sendMsg.ReceiverId, c.Uid)
 			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID, int64(timeT), 10)
 			if len(results) > 10 {
 				results = results[:10]

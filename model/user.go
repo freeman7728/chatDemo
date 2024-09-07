@@ -40,7 +40,7 @@ func (u *User) CheckPassword(password string) bool {
 	return err == nil //密码错误
 }
 
-func (u *User) CheckUid() bool {
-	result := DB.First(&User{}, "id = ?", u.ID)
+func (u *User) CheckUid(i uint) bool {
+	result := DB.First(&User{}, "id = ?", i)
 	return result.RowsAffected > 0
 }

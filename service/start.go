@@ -39,7 +39,7 @@ func (manager *ClientManager) Start() {
 		case broadcast := <-manager.Broadcast:
 			//拿到接收者对象和消息体
 			message := broadcast.Message
-			sendId := broadcast.ReceiverId
+			sendId := broadcast.Client.SendID
 			flag := false
 			//遍历在线用户map
 			if _, flag = Manager.Clients[sendId]; flag {
@@ -52,8 +52,6 @@ func (manager *ClientManager) Start() {
 					delete(Manager.Clients, sendId)
 				}
 			}
-			broadcast.Client.ID = CreatId(broadcast.Client.Uid, broadcast.ReceiverId)
-			broadcast.Client.SendID = CreatId(broadcast.ReceiverId, broadcast.Client.Uid)
 			id := broadcast.Client.ID
 			//在线
 			if flag {
