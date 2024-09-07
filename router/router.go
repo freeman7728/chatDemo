@@ -12,12 +12,9 @@ func NewRouter() *gin.Engine {
 	v1 := r.Group("/")
 	{
 		v1.POST("/register", api.UserApi{}.UserRegister)
+		v1.GET("/login", api.UserApi{}.UserLogin)
 		//获取升级连接的请求
 		v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
-	}
-	v2 := r.Group("/")
-	{
-		v2.GET("/login", api.UserApi{}.UserLogin)
 	}
 	testJwt := r.Group("/")
 	{
