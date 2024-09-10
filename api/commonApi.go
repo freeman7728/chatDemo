@@ -17,7 +17,8 @@ func InsertHandler[Model any](ctx *gin.Context) {
 		})
 		return
 	}
-	resp := service.Insert[Model](o)
+	commonCurdService := service.NewCommonCRUDService[Model]()
+	resp := commonCurdService.Insert(o)
 	ctx.JSON(http.StatusOK, resp)
 	return
 }

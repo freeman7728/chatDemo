@@ -5,8 +5,15 @@ import (
 	"chat/serializer"
 )
 
-func Insert[Model any](o Model) (resp *serializer.Response) {
-	result := model.DB.Create(&o) //如果往create传any类型，则不能使用内嵌字段，因为他不知道我也没有内嵌字段
+type CommonCRUDService[T any] struct {
+}
+
+func NewCommonCRUDService[T any]() CommonCRUDService[T] {
+	return CommonCRUDService[T]{}
+}
+
+func (c *CommonCRUDService[T]) Insert(o T) (resp *serializer.Response) {
+	result := model.DB.Create(&o)
 	if result.Error != nil {
 		return &serializer.Response{
 			Status: 500,
