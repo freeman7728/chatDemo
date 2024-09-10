@@ -18,7 +18,7 @@ type SendSortMsg struct {
 
 func InsertMsg(database string, id string, content string, read uint, expire int64) (err error) {
 	collection := conf.MongoDbClient.Database(database).Collection(id)
-	comment := ws.Trainer{
+	comment := ws.TrainerWriter{
 		Content:   content,
 		StartTime: time.Now().Unix(),
 		EndTime:   time.Now().Unix() + expire,
@@ -29,8 +29,8 @@ func InsertMsg(database string, id string, content string, read uint, expire int
 }
 
 func FindMany(database string, sendId string, id string, time int64, pageSize int) (results []ws.Result, err error) {
-	var resultsMe []ws.Trainer
-	var resultsYou []ws.Trainer
+	var resultsMe []ws.TrainerReader
+	var resultsYou []ws.TrainerReader
 	sendIdCollection := conf.MongoDbClient.Database(database).Collection(sendId)
 	idCollection := conf.MongoDbClient.Database(database).Collection(id)
 	// 如果不知道该使用什么context，可以通过context.TODO() 产生context
@@ -55,7 +55,7 @@ func FindMany(database string, sendId string, id string, time int64, pageSize in
 	return
 }
 
-func AppendAndSort(resultsMe, resultsYou []ws.Trainer) (results []ws.Result, err error) {
+func AppendAndSort(resultsMe, resultsYou []ws.TrainerReader) (results []ws.Result, err error) {
 	for _, r := range resultsMe {
 		result := ws.Result{
 			StartTime: r.StartTime,
