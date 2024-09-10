@@ -20,9 +20,9 @@ type Result struct {
 
 //数据库的集合名称为senderId->receiverId
 /*
+	ws/?uid=2&touid=3
 	获取下线时，对方发来的消息
 	{
 		"type":2,
-		"receiver":"1"
 	}
 */

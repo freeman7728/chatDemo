@@ -123,7 +123,7 @@ func (c *Client) Read() {
 		}
 		if sendMsg.Type == 1 {
 			r1, _ := cache.RedisClient.Get(c.ID).Result()
-			r2, _ := cache.RedisClient.Get(c.ID).Result()
+			r2, _ := cache.RedisClient.Get(c.SendID).Result()
 			if r1 >= "3" && r2 == "" {
 				replyMsg := ReplyMsg{
 					Code:    e.WebsocketLimit,
