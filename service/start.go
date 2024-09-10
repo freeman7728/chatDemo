@@ -16,7 +16,7 @@ func (manager *ClientManager) Start() {
 		case conn := <-manager.Register:
 			fmt.Printf("有新的连接:%v\n", conn.Uid)
 			//如果有新连接接入，则插入键值对(连接id，连接)，后续方便查询用户是否在线
-			Manager.Clients[conn.Uid] = conn
+			Manager.Clients[conn.ID] = conn
 			replyMsg := ReplyMsg{
 				Code:    e.WebsocketSuccess,
 				Content: "已经连接到服务器了",
@@ -24,8 +24,8 @@ func (manager *ClientManager) Start() {
 			msg, _ := json.Marshal(replyMsg)
 			_ = conn.Socket.WriteMessage(websocket.TextMessage, msg)
 		case conn := <-manager.Unregister: //断开连接
-			log.Printf("连接失败:%v\n", conn.Uid)
-			if _, ok := Manager.Clients[conn.Uid]; ok {
+			log.Printf("连接失败:%v\n", conn.ID)
+			if _, ok := Manager.Clients[conn.ID]; ok {
 				replyMsg := &ReplyMsg{
 					Code:    e.WebsocketEnd,
 					Content: "连接已断开",
@@ -33,7 +33,7 @@ func (manager *ClientManager) Start() {
 				msg, _ := json.Marshal(replyMsg)
 				_ = conn.Socket.WriteMessage(websocket.TextMessage, msg)
 				close(conn.Send)
-				delete(Manager.Clients, conn.Uid)
+				delete(Manager.Clients, conn.ID)
 			}
 			//监听广播通道，如果出现消息，则说明有人发送了消息
 		case broadcast := <-manager.Broadcast:

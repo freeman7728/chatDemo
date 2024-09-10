@@ -15,6 +15,7 @@ var (
 	MongoDbClient *mongo.Client
 	AppMode       string
 	HttpPort      string
+	EnableJwt     bool
 	Db            string
 	DbHost        string
 	DbPort        string

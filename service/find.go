@@ -4,6 +4,7 @@ import (
 	"chat/conf"
 	"chat/model/ws"
 	"context"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"sort"
 	"time"
@@ -39,9 +40,15 @@ func FindMany(database string, sendId string, id string, time int64, pageSize in
 	//	options.Find().SetSort(bson.D{{"startTime", -1}}), options.Find().SetLimit(int64(pageSize)))
 	//TODO 消息记录读取后改变消息读取状态，以及按照发送顺序进行排序
 	sendIdTimeCursor, err := sendIdCollection.Find(context.TODO(),
-		options.Find())
+		bson.D{}, // 查询条件，可以根据需要修改,
+		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetLimit(int64(pageSize)),
+	)
 	idTimeCursor, err := idCollection.Find(context.TODO(),
-		options.Find())
+		bson.D{}, // 查询条件，可以根据需要修改,
+		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetLimit(int64(pageSize)),
+	)
 	err = sendIdTimeCursor.All(context.TODO(), &resultsYou) // sendId 对面发过来的
 	err = idTimeCursor.All(context.TODO(), &resultsMe)      // Id 发给对面的
 	results, _ = AppendAndSort(resultsMe, resultsYou)
