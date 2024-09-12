@@ -28,7 +28,7 @@ func InsertMsg(database string, id string, content string, read uint, expire int
 	return
 }
 
-func FindMany(database string, sendId string, id string, time int64, pageSize int) (results []ws.Result, err error) {
+func FindMany(database string, sendId string, id string, page int64, pageSize int64) (results []ws.Result, err error) {
 	var resultsMe []ws.TrainerReader
 	var resultsYou []ws.TrainerReader
 	sendIdCollection := conf.MongoDbClient.Database(database).Collection(sendId)
@@ -41,12 +41,14 @@ func FindMany(database string, sendId string, id string, time int64, pageSize in
 	//TODO 消息记录读取后改变消息读取状态，以及按照发送顺序进行排序
 	sendIdTimeCursor, err := sendIdCollection.Find(context.TODO(),
 		bson.D{}, // 查询条件，可以根据需要修改,
-		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetSkip((page-1)*pageSize),
+		options.Find().SetSort(bson.D{{"startTime", 1}}),
 		options.Find().SetLimit(int64(pageSize)),
 	)
 	idTimeCursor, err := idCollection.Find(context.TODO(),
 		bson.D{}, // 查询条件，可以根据需要修改,
-		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetSkip((page-1)*pageSize),
+		options.Find().SetSort(bson.D{{"startTime", 1}}),
 		options.Find().SetLimit(int64(pageSize)),
 	)
 	err = sendIdTimeCursor.All(context.TODO(), &resultsYou) // sendId 对面发过来的

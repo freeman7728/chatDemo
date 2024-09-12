@@ -144,11 +144,18 @@ func (c *Client) Read() {
 				Message: []byte(sendMsg.Content),
 			}
 		} else if sendMsg.Type == 2 { //拉取历史消息
-			timeT, err := strconv.Atoi(sendMsg.Content) // 传送来时间
-			if err != nil {
-				timeT = 999999999
+			//每次分页请求十条消息
+			page, err := strconv.Atoi(sendMsg.Content) // 传送来时间
+			if err != nil || page == 0 {
+				replyMsg := ReplyMsg{
+					Code:    e.ERROR,
+					Content: "非法参数",
+				}
+				msg, _ := json.Marshal(replyMsg)
+				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
+				continue
 			}
-			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID, int64(timeT), 10)
+			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID, int64(page), 10)
 			if len(results) > 10 {
 				results = results[:10]
 			} else if len(results) == 0 {

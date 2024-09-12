@@ -1,8 +1,11 @@
 package ws
 
 type TrainerReader struct {
-	Id string `bson:"_id" json:"id"`
-	TrainerWriter
+	Id        string `bson:"_id" json:"id"`
+	Content   string `bson:"content" json:"content"`    // 内容
+	StartTime int64  `bson:"startTime" json:"startime"` // 创建时间
+	EndTime   int64  `bson:"endTime" json:"endTime"`    // 过期时间
+	Read      uint   `bson:"read" json:"read"`          // 已读
 }
 
 type TrainerWriter struct {
