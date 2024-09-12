@@ -1,7 +1,7 @@
 package router
 
 import (
-	"chat/api"
+	api2 "chat/api"
 	"chat/middleware"
 	"chat/model"
 	"chat/service"
@@ -12,8 +12,8 @@ func NewRouter() *gin.Engine {
 	r := gin.Default()
 	v1 := r.Group("/")
 	{
-		v1.POST("/register", api.UserApi{}.UserRegister)
-		v1.GET("/login", api.UserApi{}.UserLogin)
+		v1.POST("/register", api2.UserApi{}.UserRegister)
+		v1.GET("/login", api2.UserApi{}.UserLogin)
 		//获取升级连接的请求
 		v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
 	}
@@ -31,6 +31,6 @@ func NewRouter() *gin.Engine {
 }
 
 func CRUD[T any](group *gin.RouterGroup, idParam string) *gin.RouterGroup {
-	group.POST("", api.InsertHandler[T])
+	group.POST("", api2.InsertHandler[T])
 	return group
 }
