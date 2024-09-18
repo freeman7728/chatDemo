@@ -6,9 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/front_end/chat_front_end/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/front_end/chat_front_end/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/components/HelloWorld.vue" beforeDir="false" afterPath="$PROJECT_DIR$/front_end/chat_front_end/src/components/HelloWorld.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/babel.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/jsconfig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/App.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/assets/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/components/HelloWorld.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/src/main.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/front_end/chat_front_end/vue.config.js" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
