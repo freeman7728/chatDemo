@@ -5,19 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/back_end/middleware/Cors.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/router/router.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-front-end/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/router/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/router/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../Go" />
   <component name="Git.Settings">
@@ -28,12 +36,16 @@
   &quot;associatedIndex&quot;: 8
 }</component>
   <component name="ProjectId" id="2lwq1e5sSHaNRVjB5a1cS61X5hw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
     &quot;Go Build.go build main.go (1).executor&quot;: &quot;Run&quot;,
     &quot;Go Build.go build main.go.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,

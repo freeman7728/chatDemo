@@ -66,6 +66,8 @@ const handleLogin = async () => {
         title: '登陆成功',
         message: 'Welcome',
         });
+        localStorage.setItem('token',userStore.token)
+        console.log(localStorage.getItem('token'))
         setTimeout(()=>{
           router.push('/home')
         },2000)
@@ -78,6 +80,7 @@ const handleLogin = async () => {
         });
       }
     } catch (error) {
+      console.log(error)
       iziToast.warning({
         transitionIn:'fadeInDown',
         position:'topCenter',
