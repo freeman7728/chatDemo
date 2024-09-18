@@ -2,16 +2,26 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-18 19:25:36
+ * @LastEditTime: 2024-09-18 20:23:56
  * @LastEditors: freeman7728
 -->
 <template>
-    <div>
-        <h1>
-            这是home页面
-        </h1>
+    <div class="home-container">
+        <!-- 添加功能按钮 -->
+        <div class="tabar">
+          
+        </div>
+        <!-- 渲染该用户的好友列表 -->
+        <div class="friends-list">
+
+        </div>
+        
+        <div class="chat">
+
+        </div>
     </div>
 </template>
+
 <script lang="ts" setup>
 import { useUserStore } from '@/stores/user'
 import { onMounted } from 'vue';
@@ -39,5 +49,32 @@ onMounted(async () => {
   }
 });
 </script>
+
 <style>
+.home-container{
+  width: 1300px;
+  height: 800px;
+  border: 3px,solid;
+  border-color: aqua;
+  display: flex; 
+  justify-content: flex-start;
+}
+.tabar{
+  width: calc(13% - 40px); /* 考虑左右 margin */
+  height: calc(100% - 40px); /* 考虑上下 margin */
+  border: 3px solid aqua;
+  margin: 20px 0px 20px 20px;
+}
+.friends-list{
+  width: calc(30% - 40px); /* 考虑左右 margin */
+  height: calc(100% - 40px); /* 考虑上下 margin */
+  border: 3px solid aqua;
+  margin: 20px 0px 20px 0px;
+}
+.chat{
+  width: calc(63% - 40px); /* 考虑左右 margin */
+  height: calc(100% - 40px); /* 考虑上下 margin */
+  border: 3px solid aqua;
+  margin: 20px 0px 20px 0px;
+}
 </style>
