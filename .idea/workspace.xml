@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back_end/api/relationApi.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back_end/model/relation.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back_end/service/relation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/model/user.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/model/user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/router/router.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,5 +108,16 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/back_end/middleware/ParseToken.go</url>
+          <line>24</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

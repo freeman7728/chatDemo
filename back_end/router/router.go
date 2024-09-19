@@ -1,7 +1,7 @@
 package router
 
 import (
-	api2 "chat/api"
+	"chat/api"
 	"chat/middleware"
 	"chat/model"
 	"chat/service"
@@ -13,14 +13,18 @@ func NewRouter() *gin.Engine {
 	r.Use(middleware.CorsMiddleware())
 	v1 := r.Group("/")
 	{
-		v1.POST("/register", api2.UserApi{}.UserRegister)
-		v1.POST("/login", api2.UserApi{}.UserLogin)
+		v1.POST("/register", api.UserApi{}.UserRegister)
+		v1.POST("/login", api.UserApi{}.UserLogin)
 		//获取升级连接的请求
 		v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
 	}
 	v2 := r.Group("/student")
 	{
 		CRUD[model.Student](v2, ":id")
+	}
+	relation := r.Group("/relation")
+	{
+		relation.POST("/create", middleware.ParseToken, api.CreateRelationHandler)
 	}
 	testJwt := r.Group("/")
 	{
@@ -32,6 +36,6 @@ func NewRouter() *gin.Engine {
 }
 
 func CRUD[T any](group *gin.RouterGroup, idParam string) *gin.RouterGroup {
-	group.POST("", api2.InsertHandler[T])
+	group.POST("", api.InsertHandler[T])
 	return group
 }

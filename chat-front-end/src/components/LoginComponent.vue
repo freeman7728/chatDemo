@@ -67,7 +67,6 @@ const handleLogin = async () => {
         message: 'Welcome',
         });
         localStorage.setItem('token',userStore.token)
-        console.log(localStorage.getItem('token'))
         setTimeout(()=>{
           router.push('/home')
         },2000)

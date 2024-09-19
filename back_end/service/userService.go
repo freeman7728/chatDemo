@@ -61,6 +61,7 @@ func (u *UserService) Login() (resp serializer.Response) {
 		UserName: u.UserName,
 	}
 	if user.CheckPassword(u.PassWord) == true {
+		user.GetUserIdByUserName()
 		token, err := utils.GenerateToken(int64(user.ID), user.UserName)
 		if err != nil {
 			return serializer.Response{

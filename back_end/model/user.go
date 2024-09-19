@@ -8,7 +8,7 @@ import (
 // User 用户模型
 type User struct {
 	gorm.Model
-	ID             uint   `gorm:"unique"`
+	//ID             uint   `gorm:"unique"`
 	UserName       string `gorm:"unique"`
 	PasswordDigest string
 	Email          string //`gorm:"unique"`
@@ -29,6 +29,11 @@ func (u *User) SetPassword(password string) error {
 	}
 	u.PasswordDigest = string(generateFromPassword)
 	return nil
+}
+
+func (u *User) GetUserIdByUserName() {
+	DB.Where("username = ?", u.UserName).First(u)
+
 }
 
 func (u *User) CheckPassword(password string) bool {

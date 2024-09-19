@@ -1,15 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /*
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 14:22:51
- * @LastEditTime: 2024-09-18 20:14:58
+ * @LastEditTime: 2024-09-18 20:49:01
  * @LastEditors: freeman7728
  */
-// src/stores/userStore.ts
 import { defineStore } from 'pinia'
 import apiClient from '@/plugins/axios'
 import axios from 'axios';
-import iziToast from 'izitoast';
 interface UserState {
   userInfo: { name: string } | null;
   token: string;

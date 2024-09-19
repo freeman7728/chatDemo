@@ -13,8 +13,7 @@ func ParseToken(c *gin.Context) {
 	//	c.Next()
 	//	return
 	//}
-	_, err := utils.ParseToken(c.GetHeader("Authorization"))
-	fmt.Println(c.GetHeader("Authorization"), 1111)
+	claim, err := utils.ParseToken(c.GetHeader("Authorization"))
 	if err != nil {
 		c.JSON(http.StatusForbidden, serializer.Response{
 			Status: http.StatusForbidden,
@@ -23,5 +22,7 @@ func ParseToken(c *gin.Context) {
 		c.Abort()
 		return
 	}
+	fmt.Println(claim)
+	c.Set("id", claim.Id)
 	c.Next()
 }
