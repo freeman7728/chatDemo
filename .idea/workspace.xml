@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/router/router.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/stores/relation.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/stores/relation.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/FriendListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/FriendListComponent.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

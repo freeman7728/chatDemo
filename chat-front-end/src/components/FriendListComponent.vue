@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 08:59:01
- * @LastEditTime: 2024-09-20 14:08:28
+ * @LastEditTime: 2024-09-20 17:15:09
  * @LastEditors: freeman7728
 -->
 <template>
@@ -67,6 +67,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 25px;
 }
 .avatar-img{
     width: 100%;
