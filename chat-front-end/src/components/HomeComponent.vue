@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-20 13:48:01
+ * @LastEditTime: 2024-09-20 16:54:55
  * @LastEditors: freeman7728
 -->
 <template>
@@ -22,9 +22,9 @@
         </div>
         
         <div class="chat">
-          <ChatComponent>
+          <RouterView :key="$route.fullPath">
             
-          </ChatComponent>
+          </RouterView>
         </div>
     </div>
 </template>

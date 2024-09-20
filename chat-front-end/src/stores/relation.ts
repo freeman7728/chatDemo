@@ -35,7 +35,6 @@ export const useRelationStore = defineStore('relationStore',{
                 this.data = response.data
                 this.len = this.data.data.list.length
                 this.list = this.data.data.list
-                console.log(this.len)
             }catch(error){
                 console.log(error)
             }
