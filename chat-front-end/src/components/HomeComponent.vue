@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-20 10:22:47
+ * @LastEditTime: 2024-09-20 13:48:01
  * @LastEditors: freeman7728
 -->
 <template>
@@ -17,18 +17,21 @@
             <FriendListComponent 
                 v-for="(friend,idx) in relationStore.list" 
                 :key=idx
-                :friend-id="idx"
+                :friendId="idx"
             />
         </div>
         
         <div class="chat">
-
+          <ChatComponent>
+            
+          </ChatComponent>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
 import FriendListComponent from './FriendListComponent.vue';
+import ChatComponent from './ChatComponent.vue';
 import { useUserStore } from '@/stores/user'
 import { onMounted } from 'vue';
 import router from '@/router';
