@@ -25,6 +25,7 @@ func NewRouter() *gin.Engine {
 	relation := r.Group("/relation")
 	{
 		relation.POST("/create", middleware.ParseToken, api.CreateRelationHandler)
+		relation.GET("/get-relation-list", middleware.ParseToken, api.GetRelationHandler)
 	}
 	testJwt := r.Group("/")
 	{

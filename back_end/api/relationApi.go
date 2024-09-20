@@ -20,7 +20,7 @@ func CreateRelationHandler(ctx *gin.Context) {
 		return
 	}
 	id, _ := ctx.Get("id")
-	if o.From != id {
+	if o.Source != id {
 		resp.Msg = "不可操作其他用户"
 		resp.Status = http.StatusInternalServerError
 		ctx.JSON(http.StatusInternalServerError, resp)
@@ -30,4 +30,13 @@ func CreateRelationHandler(ctx *gin.Context) {
 	resp = relationServ.CreateRelation(o)
 	ctx.JSON(http.StatusOK, resp)
 	return
+}
+
+func GetRelationHandler(ctx *gin.Context) {
+	var resp serializer.Response
+	temp, _ := ctx.Get("id")
+	id := temp.(int64)
+	relationServ := service.GetRelationServIns()
+	resp = relationServ.GetRelation(id)
+	ctx.JSON(http.StatusOK, resp)
 }

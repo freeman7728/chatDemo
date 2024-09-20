@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-18 20:23:56
+ * @LastEditTime: 2024-09-20 10:22:47
  * @LastEditors: freeman7728
 -->
 <template>
@@ -13,7 +13,12 @@
         </div>
         <!-- 渲染该用户的好友列表 -->
         <div class="friends-list">
-
+          <!-- <FriendListComponent></FriendListComponent> -->
+            <FriendListComponent 
+                v-for="(friend,idx) in relationStore.list" 
+                :key=idx
+                :friend-id="idx"
+            />
         </div>
         
         <div class="chat">
@@ -23,11 +28,15 @@
 </template>
 
 <script lang="ts" setup>
+import FriendListComponent from './FriendListComponent.vue';
 import { useUserStore } from '@/stores/user'
 import { onMounted } from 'vue';
 import router from '@/router';
 import iziToast from 'izitoast';
+import { useRelationStore } from '@/stores/relation';
 const store = useUserStore()
+const relationStore = useRelationStore()
+relationStore.getList()
 onMounted(async () => {
   try {
     console.log()
