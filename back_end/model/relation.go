@@ -28,3 +28,16 @@ func (r *Relation) CreateRelation() bool {
 	//新增对象时，对象存在，对象不存在，其他错误
 	return false
 }
+
+func (r *Relation) DelRelation() bool {
+	res1 := DB.Delete(r, "source = ? and target = ?", r.Source, r.Target)
+	t := r.Target
+	r.Target = r.Source
+	r.Source = t
+	res2 := DB.Delete(r, "source = ? and target = ?", r.Source, r.Target)
+	if res1.RowsAffected == 1 && res2.RowsAffected == 1 {
+		return true
+	}
+	//新增对象时，对象存在，对象不存在，其他错误
+	return false
+}

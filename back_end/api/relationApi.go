@@ -20,14 +20,29 @@ func CreateRelationHandler(ctx *gin.Context) {
 		return
 	}
 	id, _ := ctx.Get("id")
-	if o.Source != id {
-		resp.Msg = "不可操作其他用户"
-		resp.Status = http.StatusInternalServerError
+	//类型断言
+	intValue, _ := id.(int64)
+	o.Source = intValue
+	relationServ := service.GetRelationServIns()
+	resp = relationServ.CreateRelation(o)
+	ctx.JSON(http.StatusOK, resp)
+	return
+}
+
+func DelRelationHandler(ctx *gin.Context) {
+	var resp serializer.Response
+	var o model.Relation
+	if err := ctx.ShouldBindBodyWithJSON(&o); err != nil {
+		resp.Error = "参数绑定错误"
 		ctx.JSON(http.StatusInternalServerError, resp)
 		return
 	}
+	id, _ := ctx.Get("id")
+	//类型断言
+	intValue, _ := id.(int64)
+	o.Source = intValue
 	relationServ := service.GetRelationServIns()
-	resp = relationServ.CreateRelation(o)
+	resp = relationServ.DelRelation(o)
 	ctx.JSON(http.StatusOK, resp)
 	return
 }

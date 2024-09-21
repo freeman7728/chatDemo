@@ -3,7 +3,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 14:22:51
- * @LastEditTime: 2024-09-18 20:49:01
+ * @LastEditTime: 2024-09-21 16:58:34
  * @LastEditors: freeman7728
  */
 import { defineStore } from 'pinia'
@@ -31,6 +31,15 @@ export const useUserStore = defineStore('userStore', {
         if(response.data.data){
           this.token = response.data.data.token
         }
+      } catch (error) {
+        throw new Error('未知错误')
+      }
+    },
+    async register(credentials: { user_name: string; password: string }) {
+      try {
+        const response = await apiClient.post('/register', credentials)
+        this.resp = response
+        this.data = response.data
       } catch (error) {
         throw new Error('未知错误')
       }

@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 11:23:05
- * @LastEditTime: 2024-09-20 22:16:27
+ * @LastEditTime: 2024-09-21 14:31:03
  * @LastEditors: freeman7728
 -->
 <template>
@@ -70,10 +70,7 @@ const socket = ref<WebSocket | null>(null);
     };
     
     socket.value.onmessage = (event) => {
-        // if(event.data.data.code != 50004){
-            
-        // }
-        const messageData = JSON.parse(event.data);
+        const messageData = JSON.parse(event.data)
         if (messageData.code != 50004 && messageData.content) {
             const message = {
                 type: 1, // Received message type
@@ -117,8 +114,6 @@ onBeforeUnmount(() => {
 .message-container{
     width: 100%;
     height: 70%;
-    /* max-height: 70%; */
-    /* height: 535px; */
     border: 2px purple solid;
     display: flex;
     flex-direction: column;

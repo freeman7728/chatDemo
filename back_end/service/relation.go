@@ -28,6 +28,11 @@ func GetRelationServIns() *RelationServ {
 func (r *RelationServ) CreateRelation(relation model.Relation) (resp serializer.Response) {
 	resp.Status = http.StatusOK
 	var user model.User
+	if relation.Target == relation.Source {
+		resp.Status = http.StatusInternalServerError
+		resp.Msg = "不能添加自己"
+		return
+	}
 	if !user.CheckUid(uint(relation.Target)) {
 		resp.Status = http.StatusInternalServerError
 		resp.Msg = "对方不存在"
@@ -41,6 +46,22 @@ func (r *RelationServ) CreateRelation(relation model.Relation) (resp serializer.
 	}
 	return
 }
+func (r *RelationServ) DelRelation(relation model.Relation) (resp serializer.Response) {
+	resp.Status = http.StatusOK
+	if relation.Target == relation.Source {
+		resp.Status = http.StatusInternalServerError
+		resp.Msg = "不能删除自己"
+		return
+	}
+	if relation.DelRelation() {
+		resp.Msg = "关系删除成功"
+	} else {
+		resp.Msg = "检查好友是否存在"
+		resp.Status = http.StatusInternalServerError
+	}
+	return
+}
+
 func (r *RelationServ) GetRelation(id int64) (resp serializer.Response) {
 	resp.Status = http.StatusOK
 	var relations model.Relation

@@ -9,7 +9,7 @@ interface RelationItem {
 }
 // 定义 API 响应数据的结构
 interface RelationData {
-    list: RelationItem[];
+    list: RelationItem[] | null;
 }
 interface RelationState{
     status:any;
@@ -33,8 +33,17 @@ export const useRelationStore = defineStore('relationStore',{
             try{
                 const response = await apiClient.get(`/relation/get-relation-list`)
                 this.data = response.data
-                this.len = this.data.data.list.length
-                this.list = this.data.data.list
+                
+                if(this.data.data && this.data.data.list){
+                    this.list = this.data.data.list
+                }else{
+                    this.len = 0
+                    this.list = []
+                    return
+                }
+                if(this.list){
+                    this.len = this.data.data.list.length
+                }
             }catch(error){
                 console.log(error)
             }

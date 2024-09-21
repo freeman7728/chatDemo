@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 08:59:01
- * @LastEditTime: 2024-09-20 17:15:09
+ * @LastEditTime: 2024-09-21 15:02:06
  * @LastEditors: freeman7728
 -->
 <template>
@@ -21,30 +21,30 @@
 </template>
 
 <script lang="ts" setup>
-    import { onMounted } from 'vue'
-    import { useRelationStore } from '@/stores/relation';
-    import { computed } from 'vue'
-    import router from '@/router';
-    const relationStore = useRelationStore()
-    const props = defineProps<{
-        friendId: number
-    }>()
-    const friendDetail = computed(() => {
-        return relationStore.list[props.friendId] || {}
-    })
-    const goToChat = () => {
-        try{
-            router.push({ 
-            name: 'ChatPage', 
-            query: { 
-                id: relationStore.list[props.friendId].from,
-                toId:relationStore.list[props.friendId].to
-            } 
-        });
-        }catch(error){
-            console.log(error)
-        }
-    };
+import { onMounted } from 'vue'
+import { useRelationStore } from '@/stores/relation';
+import { computed } from 'vue'
+import router from '@/router';
+const relationStore = useRelationStore()
+const props = defineProps<{
+    friendId: number
+}>()
+const friendDetail = computed(() => {
+    return relationStore.list[props.friendId] || {}
+})
+const goToChat = () => {
+    try{
+        router.push({ 
+        name: 'ChatPage', 
+        query: { 
+            id: relationStore.list[props.friendId].from,
+            toId:relationStore.list[props.friendId].to
+        } 
+    });
+    }catch(error){
+        console.log(error)
+    }
+};
 </script>
 
 <style>
