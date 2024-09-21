@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 11:23:05
- * @LastEditTime: 2024-09-21 14:31:03
+ * @LastEditTime: 2024-09-21 19:31:24
  * @LastEditors: freeman7728
 -->
 <template>
@@ -107,14 +107,14 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     display: flex;
-    border: 2px yellow solid;
+    border: 1px gray solid;
     display: flex;
     flex-direction: column;
 }
 .message-container{
     width: 100%;
     height: 70%;
-    border: 2px purple solid;
+    border: 1px gray solid;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
 .recv-message{
     max-width: 80%;
     min-width: 10%;
-    border: 3px blue solid;
+    border: 3px white solid;
     margin-left: 3%;
     margin-top: 3%;
     margin-right: auto;
@@ -130,11 +130,17 @@ onBeforeUnmount(() => {
     word-break: break-all; /* 允许在长单词中间换行 */
     overflow-wrap: break-word; /* 防止长字串溢出 */
     border-radius: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
 }
 .send-message{
     max-width: 80%;
     min-width: 10%;
-    border: 3px greenyellow solid;
+    border: 3px rgb(134, 233, 53) solid;
+    background-color: rgb(134, 233, 53);
     margin-left: auto;
     margin-right: 3%;
     margin-top: 3%;
@@ -142,18 +148,22 @@ onBeforeUnmount(() => {
     word-break: break-all; /* 允许在长单词中间换行 */
     overflow-wrap: break-word; /* 防止长字串溢出 */
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3px;
 }
 .typing-container{
     width: 100%;
     height: 20%;
-    border: 2px purple solid;
+    border: 1px gray solid;
     display: flex;
     flex-direction: column;
 }
 .info-container{
     width: 100%;
     height: 10%;
-    border: 2px purple solid;
+    border: 1px gray solid;
     display: flex;
     align-items: center;
 }

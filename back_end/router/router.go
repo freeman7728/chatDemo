@@ -4,6 +4,7 @@ import (
 	"chat/api"
 	"chat/middleware"
 	"chat/model"
+	"chat/serializer"
 	"chat/service"
 	"github.com/gin-gonic/gin"
 )
@@ -33,7 +34,10 @@ func NewRouter() *gin.Engine {
 	testJwt := r.Group("/")
 	{
 		testJwt.GET("/ping", middleware.ParseToken, func(c *gin.Context) {
-			c.JSON(200, "success")
+			id, _ := c.Get("id")
+			var resp serializer.Response
+			resp.Data = id
+			c.JSON(200, resp)
 		})
 	}
 	return r

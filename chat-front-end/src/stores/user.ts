@@ -3,7 +3,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 14:22:51
- * @LastEditTime: 2024-09-21 16:58:34
+ * @LastEditTime: 2024-09-21 17:11:28
  * @LastEditors: freeman7728
  */
 import { defineStore } from 'pinia'
@@ -49,6 +49,7 @@ export const useUserStore = defineStore('userStore', {
       try {
         // 发起 GET 请求
         const response = await apiClient.get('/ping');
+        localStorage.setItem("id",response.data.data)
         return true
         // 处理成功响应
       } catch (error) {

@@ -2,13 +2,19 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-21 16:14:13
+ * @LastEditTime: 2024-09-21 19:27:43
  * @LastEditors: freeman7728
 -->
 <template>
     <div class="home-container">
         <!-- 添加功能按钮 -->
         <div class="tabar">
+          <div class="local-id">
+            本机id
+          </div>
+          <div class="local-id-container">
+            {{ localId }}
+          </div>
           <div class="logout">
             <button class="logout-btn" @click="logout">
               登出
@@ -54,8 +60,10 @@ import { onMounted } from 'vue';
 import router from '@/router';
 import iziToast from 'izitoast';
 import { useRelationStore } from '@/stores/relation';
+import { onBeforeMount } from 'vue';
 const store = useUserStore()
 const relationStore = useRelationStore()
+const localId = localStorage.getItem("id")
 relationStore.getList()
 const logout = () => {
   localStorage.removeItem("token")
@@ -73,7 +81,7 @@ const addNewFriend = () => {
 const delFriend = () => {
   router.push('/home/del-friend')
 }
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
     console.log()
     const isAuthorized = await store.checkAuthorization();
@@ -99,23 +107,45 @@ onMounted(async () => {
 .home-container{
   width: 1300px;
   height: 800px;
-  border: 3px,solid;
-  border-color: aqua;
+  border: black 1px solid;
   display: flex; 
   justify-content: flex-start;
+  background-color: rgb(175, 174, 174);
 }
 .tabar{
   width: calc(13% - 40px); /* 考虑左右 margin */
   height: calc(100% - 40px); /* 考虑上下 margin */
-  border: 3px solid aqua;
+  border: 1px solid gray;
   margin: 20px 0px 20px 20px;
   display: flex;
   flex-direction: column;
+  background-color: rgb(48, 49, 51);
+}
+.local-id{
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  font-weight: 5px;
+  color: aliceblue;
+}
+.local-id-container{
+  width: 100%;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 30px;
+  font-weight: 5px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: aliceblue;
 }
 .add-friend{
   width: 100%;
   height: 120px;
-  border: 3px red solid;
+  border: 1px gray solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,13 +155,13 @@ onMounted(async () => {
   margin: 5px;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-  border: 3px orange solid;
+  border: 1px gray solid;
   border-radius: 10px;
 }
 .logout{
   width: 100%;
   height: 120px;
-  border: 3px red solid;
+  border: 1px gray solid;
   margin-top: auto;
   display: flex;
   justify-content: center;
@@ -142,7 +172,7 @@ onMounted(async () => {
   margin: 5px;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-  border: 3px orange solid;
+  border: 1px gray solid;
   border-radius: 10px;
 }
 .if-null{
@@ -156,14 +186,15 @@ onMounted(async () => {
 .friends-list{
   width: calc(30% - 40px); /* 考虑左右 margin */
   height: calc(100% - 40px); /* 考虑上下 margin */
-  border: 3px solid aqua;
+  border: 1px solid gray;
   margin: 20px 0px 20px 0px;
   position: relative;
+  background-color: rgb(175, 179, 182);
 }
 .chat{
   width: calc(63% - 40px); /* 考虑左右 margin */
   height: calc(100% - 40px); /* 考虑上下 margin */
-  border: 3px solid aqua;
+  border: 1px gray solid;
   margin: 20px 0px 20px 0px;
 }
 </style>
