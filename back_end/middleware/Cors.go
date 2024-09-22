@@ -8,7 +8,7 @@ import (
 
 func CorsMiddleware() gin.HandlerFunc {
 	return cors.New(cors.Config{
-		AllowOrigins:     []string{"http://localhost:5173"},                   // 允许的源
+		AllowOrigins:     []string{"*"},                                       // 允许的源
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE"},            // 允许的请求方法
 		AllowHeaders:     []string{"Origin", "Content-Type", "Authorization"}, // 允许的请求头
 		ExposeHeaders:    []string{"Content-Length"},                          // 允许客户端访问的响应头

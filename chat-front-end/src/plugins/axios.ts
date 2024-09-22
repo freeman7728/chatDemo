@@ -2,19 +2,19 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 16:00:36
- * @LastEditTime: 2024-09-20 15:39:36
+ * @LastEditTime: 2024-09-22 13:33:18
  * @LastEditors: freeman7728
  */
 // src/plugins/axios.ts
 import axios from 'axios'
 
+export const bu = 'http://10.101.173.185:3000'
 const apiClient = axios.create({
-  baseURL: 'http://localhost:3000',  // 后端API的基础URL
-  timeout: 10000,                      // 请求超时时间
+  baseURL: bu,  // 后端API的基础URL
+  timeout: 10000,      // 请求超时时间
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
-    //'Authorization':'yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJteS1pc3N1ZXIiLCJzdWIiOiIxMjMxMjMiLCJleHAiOjE3MjY2NDUyMjYsImlkIjowLCJ1c2VybmFtZSI6IjEyMzEyMyIsInJvbGUiOiJhZG1pbiJ9.CBp0x-7JvoTodSTfJYprAlAswS4elqV6CY11YwvpohY',
   }
 })
 

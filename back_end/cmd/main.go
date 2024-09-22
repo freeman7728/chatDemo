@@ -10,5 +10,5 @@ func main() {
 	conf.Init()
 	go service.Manager.Start()
 	r := router.NewRouter()
-	_ = r.Run(conf.HttpPort)
+	_ = r.Run("0.0.0.0" + conf.HttpPort)
 }

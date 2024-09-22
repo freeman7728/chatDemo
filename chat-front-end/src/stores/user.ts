@@ -3,7 +3,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 14:22:51
- * @LastEditTime: 2024-09-21 17:11:28
+ * @LastEditTime: 2024-09-22 14:54:03
  * @LastEditors: freeman7728
  */
 import { defineStore } from 'pinia'
@@ -54,12 +54,6 @@ export const useUserStore = defineStore('userStore', {
         // 处理成功响应
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          // 处理 Axios 错误
-          // console.error('AxiosError:', {
-          //   message: error.message,
-          //   response: error.response,
-          //   request: error.request,
-          // });
           if (error.response?.status === 403) {
             return false
           }

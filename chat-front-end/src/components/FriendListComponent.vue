@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 08:59:01
- * @LastEditTime: 2024-09-21 19:24:10
+ * @LastEditTime: 2024-09-22 13:23:23
  * @LastEditors: freeman7728
 -->
 <template>
@@ -14,7 +14,7 @@
         <!-- 姓名 -->
          <div class="name">
             <div>
-                {{ friendDetail }}
+                ID为{{ friendDetail.to }}的用户
             </div>
          </div>
     </div>
@@ -24,6 +24,7 @@
 import { onMounted } from 'vue'
 import { useRelationStore } from '@/stores/relation';
 import { computed } from 'vue'
+import { ref } from 'vue';
 import router from '@/router';
 const relationStore = useRelationStore()
 const props = defineProps<{
@@ -31,7 +32,7 @@ const props = defineProps<{
 }>()
 const friendDetail = computed(() => {
     return relationStore.list[props.friendId] || {}
-})
+}) // 保存当前选中的 friendId
 const goToChat = () => {
     try{
         router.push({ 
@@ -51,19 +52,17 @@ const goToChat = () => {
 .friend-item-container{
     width: 100%;
     height: 100px;
-    border: 1px gray solid;
     display: flex;
-    margin: 0px 0px 5px 0px;
+    margin: 0 0 20px 0;
+    padding:10px;
 }
 .avatar{
-    width: 30%;
+    width: 25%;
     height: 100%;
-    border: 1px gray solid;
 }
 .name{
     width: 70%;
     height: 100%;
-    border: 1px gray solid;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -72,5 +71,9 @@ const goToChat = () => {
 .avatar-img{
     width: 100%;
     height: 100%;
+}
+.selected {
+    background-color: #e0f7fa;
+    border-color: #00796b;
 }
 </style>

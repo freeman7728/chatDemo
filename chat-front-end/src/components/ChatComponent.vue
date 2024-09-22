@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 11:23:05
- * @LastEditTime: 2024-09-21 19:31:24
+ * @LastEditTime: 2024-09-22 13:32:16
  * @LastEditors: freeman7728
 -->
 <template>
@@ -28,7 +28,7 @@
             <textarea id = "typing" type="text" class="typing-area" v-model="msg">
             </textarea>
             <button class="submit-message" @click="submitMessageHandler">
-
+                发送
             </button>
             </div>
     </div>
@@ -39,6 +39,7 @@ import { useRoute } from 'vue-router';
 import { toRef } from 'vue';
 import { ref,onBeforeUnmount } from 'vue';
 import { onUpdated } from 'vue';
+import {bu} from '@/plugins/axios';
 const route = useRoute()
 let query = toRef(route,'query')
 const msg = ref('')
@@ -63,7 +64,7 @@ const submitMessageHandler = ()=>{
 }
 const socket = ref<WebSocket | null>(null);
     const connectWebSocket = () => {
-    const wsurl = `http://127.0.0.1:3000/ws?uid=${query.value.id}&touid=${query.value.toId}&token=${localStorage.getItem("token")}`
+    const wsurl = `${bu}/ws?uid=${query.value.id}&touid=${query.value.toId}&token=${localStorage.getItem("token")}`
     socket.value = new WebSocket(wsurl);
     socket.value.onopen = () => {
         console.log('WebSocket连接已打开');
@@ -107,14 +108,37 @@ onBeforeUnmount(() => {
     width: 100%;
     height: 100%;
     display: flex;
-    border: 1px gray solid;
     display: flex;
     flex-direction: column;
 }
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgb(239, 239, 239);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #bfbfbf;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #bfbfbf;
+}
+
+::-webkit-scrollbar-corner {
+  background: #bfbfbf;
+}
 .message-container{
+    border-top: 1px rgb(161, 160, 160) solid;
+    border-left: 1px rgb(161, 160, 160) solid;
+    border-right: 1px rgb(161, 160, 160) solid;
     width: 100%;
     height: 70%;
-    border: 1px gray solid;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
@@ -156,14 +180,16 @@ onBeforeUnmount(() => {
 .typing-container{
     width: 100%;
     height: 20%;
-    border: 1px gray solid;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .info-container{
+    border-top: 1px rgb(161, 160, 160) solid;
+    border-left: 1px rgb(161, 160, 160) solid;
+    border-right: 1px rgb(161, 160, 160) solid;
     width: 100%;
     height: 10%;
-    border: 1px gray solid;
     display: flex;
     align-items: center;
 }
@@ -172,18 +198,33 @@ onBeforeUnmount(() => {
     font-size: 50px;
 }
 .typing-area{
-    margin: 5px;
-    width: calc(100% - 10px);
-    height: calc(75% - 10px);
+    border-top: 1px rgb(161, 160, 160) solid;
+    border-left: 1px rgb(161, 160, 160) solid;
+    border-right: 1px rgb(161, 160, 160) solid;
+    border-bottom: 1px rgb(161, 160, 160) solid;
+    width: 100%;
+    height: 100%;
     resize: none;
     font-size: large;
+    padding: 10px;
+    font-size: 20px;
 }
 .submit-message{
-    position: relative;
+    border: 0px;
+    position: absolute;
     width: 90px;
     height: 30px;
     margin: 0 5px 0 0;
-    left: calc(100% - 95px);
+    left: calc(100% - 100px);
+    color: rgb(35, 196, 21);
+    font-weight: 20px;
+    font-size: 20px;
+    top: calc(100% - 40px);
+    border-radius: 5px;
+}
+button:hover{
+    background-color: rgb(133, 131, 131);
+    color: black;
 }
 </style>
 

@@ -29,8 +29,8 @@
       <div class="under-area-item">
         <RouterLink to="/register">注册账号</RouterLink>
       </div>
-      <div class="under-area-item">
-        <RouterLink to="/forget-pw">忘记密码</RouterLink>
+      <div class="under-area-item" @click="handleForget">
+        <RouterLink to="/login">忘记密码</RouterLink>
       </div>
     </div>
   </div>
@@ -50,6 +50,14 @@ const router = useRouter()
 
 // 获取 userStore 以便发起登录请求
 const userStore = useUserStore()
+const handleForget = () => {
+  iziToast.warning({
+    position:'topCenter',
+    transitionIn:'fadeInDown',
+    title: '还没做',
+    message: '别点了',
+  })
+}
 
 const handleLogin = async () => {
   if (username.value && password.value) {
@@ -61,10 +69,10 @@ const handleLogin = async () => {
       })
       if(userStore.data.status == 200){
         iziToast.success({
-        position:'topCenter',
-        transitionIn:'fadeInDown',
-        title: '登陆成功',
-        message: 'Welcome',
+          position:'topCenter',
+          transitionIn:'fadeInDown',
+          title: '登陆成功',
+          message: 'Welcome',
         });
         localStorage.setItem('token',userStore.token)
         setTimeout(()=>{
@@ -119,8 +127,8 @@ const handleLogin = async () => {
   margin: 50px;
 }
 .under-area-item a{
-  font-size: 15px;
-  color: #19b6e6;
+  font-size: 20px;
+  color: #0e1518;
 }
 .under-area{
   display: flex;

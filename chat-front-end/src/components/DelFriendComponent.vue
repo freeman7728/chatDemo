@@ -2,12 +2,12 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-21 15:53:21
- * @LastEditTime: 2024-09-21 16:11:27
+ * @LastEditTime: 2024-09-22 15:05:16
  * @LastEditors: freeman7728
 -->
 <template>
     <div class="add-container">
-        <input type="text" class="input-friendId" v-model="friendId">
+        <input type="text" class="input-friendId" v-model="friendId" placeholder="请输入对方ID">
         <button class="submit-friendId" @click="submitFriendId">删除好友</button>
     </div>
 </template>
@@ -85,7 +85,6 @@ const sendFriendId = async (id: string) => {
 .add-container{
     width: 100%;
     height: 100%;
-    border: lawngreen 3px solid;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -96,12 +95,12 @@ const sendFriendId = async (id: string) => {
     height: 50px;
     margin: 20px;
     font-size: 30px;
+    padding: 10px;
 }
 .submit-friendId{
     font-size: 20px;
     width: 100px;
     height: 50px;
-    border: 3px red solid;
     border-radius: 10px;
 }
 </style>

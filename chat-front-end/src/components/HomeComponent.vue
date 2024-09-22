@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-21 19:27:43
+ * @LastEditTime: 2024-09-22 15:00:01
  * @LastEditors: freeman7728
 -->
 <template>
@@ -22,12 +22,12 @@
           </div>
           <div class="add-friend">
             <button class="add-friend-btn" @click="delFriend">
-              删除好友
+              删除<br>好友
             </button>
           </div>
           <div class="add-friend">
             <button class="add-friend-btn" @click="addNewFriend">
-              添加好友
+              添加<br>好友
             </button>
           </div>
         </div>
@@ -61,12 +61,14 @@ import router from '@/router';
 import iziToast from 'izitoast';
 import { useRelationStore } from '@/stores/relation';
 import { onBeforeMount } from 'vue';
+import { ref } from 'vue';
 const store = useUserStore()
 const relationStore = useRelationStore()
-const localId = localStorage.getItem("id")
+let localId = ref<string | null>('')
 relationStore.getList()
 const logout = () => {
   localStorage.removeItem("token")
+  localStorage.removeItem("id")
   router.push('/login');
   iziToast.success({
       transitionIn:'fadeInDown',
@@ -83,8 +85,8 @@ const delFriend = () => {
 }
 onBeforeMount(async () => {
   try {
-    console.log()
     const isAuthorized = await store.checkAuthorization();
+    localId.value = localStorage.getItem("id")
     if(!isAuthorized){
       console.log('Unauthorized. Please log in.');
             // 处理 403 错误，例如重定向到登录页面
@@ -111,6 +113,8 @@ onBeforeMount(async () => {
   display: flex; 
   justify-content: flex-start;
   background-color: rgb(175, 174, 174);
+  /* background-color:#2c2c2c */
+
 }
 .tabar{
   width: calc(13% - 40px); /* 考虑左右 margin */
@@ -145,7 +149,6 @@ onBeforeMount(async () => {
 .add-friend{
   width: 100%;
   height: 120px;
-  border: 1px gray solid;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -155,13 +158,14 @@ onBeforeMount(async () => {
   margin: 5px;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-  border: 1px gray solid;
   border-radius: 10px;
+  border: 0px;
+  background-color: rgb(48, 49, 51);
+  color: rgb(123, 123, 124);
 }
 .logout{
   width: 100%;
   height: 120px;
-  border: 1px gray solid;
   margin-top: auto;
   display: flex;
   justify-content: center;
@@ -172,8 +176,10 @@ onBeforeMount(async () => {
   margin: 5px;
   height: calc(100% - 10px);
   width: calc(100% - 10px);
-  border: 1px gray solid;
   border-radius: 10px;
+  border: 0px;
+  background-color: rgb(48, 49, 51);
+  color: rgb(123, 123, 124);
 }
 .if-null{
   position: absolute; /* 绝对定位 */
@@ -186,15 +192,14 @@ onBeforeMount(async () => {
 .friends-list{
   width: calc(30% - 40px); /* 考虑左右 margin */
   height: calc(100% - 40px); /* 考虑上下 margin */
-  border: 1px solid gray;
   margin: 20px 0px 20px 0px;
   position: relative;
   background-color: rgb(175, 179, 182);
+  overflow-y: auto;
 }
 .chat{
   width: calc(63% - 40px); /* 考虑左右 margin */
   height: calc(100% - 40px); /* 考虑上下 margin */
-  border: 1px gray solid;
   margin: 20px 0px 20px 0px;
 }
 </style>
