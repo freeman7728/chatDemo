@@ -4,20 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/cmd/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/cmd/main.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/middleware/Cors.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/Cors.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/AddNewFriendComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/AddNewFriendComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/DelFriendComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/DelFriendComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/FriendListComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/FriendListComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/stores/user.ts" afterDir="false" />
-    </list>
+    <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
