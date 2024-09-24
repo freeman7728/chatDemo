@@ -46,6 +46,8 @@ func (r *RelationServ) CreateRelation(relation model.Relation) (resp serializer.
 	}
 	return
 }
+
+// DelRelation 删除好友
 func (r *RelationServ) DelRelation(relation model.Relation) (resp serializer.Response) {
 	resp.Status = http.StatusOK
 	if relation.Target == relation.Source {
@@ -62,6 +64,7 @@ func (r *RelationServ) DelRelation(relation model.Relation) (resp serializer.Res
 	return
 }
 
+// GetRelationServIns 获取好友列表
 func (r *RelationServ) GetRelation(id int64) (resp serializer.Response) {
 	resp.Status = http.StatusOK
 	var relations model.Relation

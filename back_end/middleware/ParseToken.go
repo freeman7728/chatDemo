@@ -3,7 +3,6 @@ package middleware
 import (
 	"chat/pkg/utils"
 	"chat/serializer"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -22,7 +21,6 @@ func ParseTokenForWebsocket(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	fmt.Println(claim)
 	c.Set("id", claim.Id)
 	c.Next()
 }
@@ -41,7 +39,6 @@ func ParseToken(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	fmt.Println(claim)
 	c.Set("id", claim.Id)
 	c.Next()
 }

@@ -111,16 +111,16 @@ const handleLogin = async () => {
 .img-container{
   z-index: 999;
   position: absolute;
-  top: -200px;
+  top:-200px;
   left:450px;
   width: 500px;
   height: 500px;
   rotate: 30deg;
 }
 .img-container img {
-  width: 100%; /* 图片将继承容器的宽度 */
-  height: 100%; /* 图片将继承容器的高度 */
-  object-fit: cover; /* 确保图片不会失真 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   opacity:0.5;
 }
 .under-area-item{

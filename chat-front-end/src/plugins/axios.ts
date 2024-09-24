@@ -2,13 +2,13 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-16 16:00:36
- * @LastEditTime: 2024-09-22 13:33:18
+ * @LastEditTime: 2024-09-23 14:21:12
  * @LastEditors: freeman7728
  */
 // src/plugins/axios.ts
 import axios from 'axios'
 
-export const bu = 'http://10.101.173.185:3000'
+export const bu = 'http://localhost:3000'
 const apiClient = axios.create({
   baseURL: bu,  // 后端API的基础URL
   timeout: 10000,      // 请求超时时间

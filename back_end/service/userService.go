@@ -17,6 +17,7 @@ type UserLoginVo struct {
 	Token string `json:"token"`
 }
 
+// UserRegisterService 用户注册
 func (u *UserService) UserRegisterService() (resp serializer.Response) {
 	//TODO 参数校验，然后传递给持久化
 	/*
@@ -55,7 +56,7 @@ func (u *UserService) UserRegisterService() (resp serializer.Response) {
 	}
 }
 
-// Login 用户登录逻辑
+// Login 用户登录
 func (u *UserService) Login() (resp serializer.Response) {
 	user := &model.User{
 		UserName: u.UserName,

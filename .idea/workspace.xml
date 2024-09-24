@@ -4,7 +4,15 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="" />
+    <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/service/relation.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/relation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/userService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,16 +104,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/back_end/middleware/ParseToken.go</url>
-          <line>43</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
