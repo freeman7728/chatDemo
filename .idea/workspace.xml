@@ -6,12 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/middleware/ParseToken.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/service/relation.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/relation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/userService.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/LoginComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/plugins/axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/main.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/tsconfig.app.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat-front-end/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/vite.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

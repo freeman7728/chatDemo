@@ -4,27 +4,21 @@
     <div class="img-container">
         <img src="/src/assets/Go-Logo_Blue.png" alt="">
     </div>
-    <div>
-      <label for="username">账号:</label>
-      <input 
-        v-model="username" 
-        type="text"
-        id="username" 
-        placeholder="请输入账号或邮箱"
-      />
-    </div>
-    <div>
-      <label for="password">密码:</label>
-      <input 
-        v-model="password" 
-        type="password" 
-        id="password" 
-        placeholder="请输入密码"
-      />
-    </div>
-    <div>
-      <button @click="handleLogin">确认登录</button>
-    </div>
+    <label for="username">账号:</label>
+    <input 
+      v-model="username" 
+      type="text"
+      id="username" 
+      placeholder="请输入账号或邮箱"
+    />
+    <label for="password">密码:</label>
+    <input 
+      v-model="password" 
+      type="password" 
+      id="password" 
+      placeholder="请输入密码"
+    />
+    <button @click="handleLogin">确认登录</button>
     <div class="under-area">
       <div class="under-area-item">
         <RouterLink to="/register">注册账号</RouterLink>
@@ -111,10 +105,10 @@ const handleLogin = async () => {
 .img-container{
   z-index: 999;
   position: absolute;
-  top:-200px;
-  left:450px;
-  width: 500px;
-  height: 500px;
+  top:-1.5rem;
+  left:2rem;
+  width: 3rem;
+  height: 3rem;
   rotate: 30deg;
 }
 .img-container img {
@@ -124,61 +118,66 @@ const handleLogin = async () => {
   opacity:0.5;
 }
 .under-area-item{
-  margin: 50px;
+  margin: 0.05rem;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .under-area-item a{
-  font-size: 20px;
-  color: #0e1518;
+  color: black;
+  font-size: 0.1rem;
+  max-height: 0.1rem;
 }
 .under-area{
   display: flex;
   justify-content:center;
   align-items:center;
-  gap: 50px;
 }
 .login-form {
-  width: 800px;
-  height: 500px;
+  min-width: 4rem;
   margin: 0 auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.7);
+  padding: 0.1rem;
+  border: 0.01rem solid #ccc;
+  box-shadow: 0 0.1rem 0.1remrgba(0, 0, 0, 0.7);
   backdrop-filter: blur(13px) brightness(163%);
   background-color: rgba(255, 255, 255, 0.54);
-  border-radius: 10px;
+  border-radius: 0.1rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .login-form h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 0.1rem;
   font-weight: bold;
-  font-size: 40px;
+  font-size: 0.2rem;
 }
 
 .login-form label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 0.03rem;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 0.1rem;
 }
 
 .login-form input {
   width: 100%;
-  padding: 20px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 20px;
+  padding: 0.1rem;
+  margin-bottom: 0.08rem;
+  border: 0.01rem solid #ccc;
+  border-radius: 0.03rem;
+  font-size: 0.1rem;
 }
 
 .login-form button {
   width: 100%;
-  padding: 10px;
+  padding: 0.05rem;
   background-color: #19b6e6;
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 20px;
+  border-radius: 0.01rem;
+  font-size: 0.1rem;
   cursor: pointer;
 }
 
