@@ -16,8 +16,8 @@ type TrainerWriter struct {
 }
 
 type Result struct {
-	StartTime int64
-	From      string
+	StartTime int64         `json:"startTime"`
+	From      string        `json:"from"`
 	Data      TrainerReader `json:"data"`
 }
 

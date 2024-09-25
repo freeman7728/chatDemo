@@ -10,7 +10,6 @@ import (
 	"github.com/gorilla/websocket"
 	log "github.com/sirupsen/logrus"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -122,6 +121,15 @@ func (c *Client) Read() {
 			return
 		}
 		if sendMsg.Type == 1 {
+			if len(sendMsg.Content) >= 1000 {
+				replyMsg := ReplyMsg{
+					Code:    e.WebsocketLimit,
+					Content: "消息长度过长",
+				}
+				msg, _ := json.Marshal(replyMsg)
+				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
+				continue
+			}
 			r1, _ := cache.RedisClient.Get(c.ID).Result()
 			r2, _ := cache.RedisClient.Get(c.SendID).Result()
 			if r1 >= "3" && r2 == "" {
@@ -145,20 +153,18 @@ func (c *Client) Read() {
 			}
 		} else if sendMsg.Type == 2 { //拉取历史消息
 			//每次分页请求十条消息
-			page, err := strconv.Atoi(sendMsg.Content) // 传送来时间
-			if err != nil || page == 0 {
-				replyMsg := ReplyMsg{
-					Code:    e.ERROR,
-					Content: "非法参数",
-				}
-				msg, _ := json.Marshal(replyMsg)
-				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
-				continue
-			}
-			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID, int64(page), 10)
-			if len(results) > 10 {
-				results = results[:10]
-			} else if len(results) == 0 {
+			//page, err := strconv.Atoi(sendMsg.Content) // 传送来时间
+			//if err != nil || page == 0 {
+			//	replyMsg := ReplyMsg{
+			//		Code:    e.ERROR,
+			//		Content: "非法参数",
+			//	}
+			//	msg, _ := json.Marshal(replyMsg)
+			//	_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
+			//	continue
+			//}
+			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID)
+			if len(results) == 0 {
 				replyMsg := ReplyMsg{
 					Code:    e.WebsocketEnd,
 					Content: "到底了",
@@ -168,7 +174,12 @@ func (c *Client) Read() {
 				continue
 			}
 			for _, result := range results {
-				msg, _ := json.Marshal(result)
+				//封装消息，使历史消息与正常接受发送的消息格式一致
+				msg, _ := json.Marshal(ReplyMsg{
+					Code:    50001,
+					From:    result.From,
+					Content: result.Data.Content,
+				})
 				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
 			}
 		}

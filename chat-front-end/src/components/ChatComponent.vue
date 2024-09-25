@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 11:23:05
- * @LastEditTime: 2024-09-23 14:20:30
+ * @LastEditTime: 2024-09-25 15:43:54
  * @LastEditors: freeman7728
 -->
 <template>
@@ -40,8 +40,10 @@ import { toRef } from 'vue';
 import { ref,onBeforeUnmount } from 'vue';
 import { onUpdated } from 'vue';
 import {bu} from '@/plugins/axios';
+import iziToast from 'izitoast';
 const route = useRoute()
 let query = toRef(route,'query')
+const MaxLength = 1000
 const msg = ref('')
 const messages = ref<{ type: number, content: string,sender:number }[]>([]);
 const containerRef = ref()
@@ -49,6 +51,15 @@ onUpdated(() => {
   containerRef.value.scrollTop = containerRef.value.scrollHeight
 })
 const submitMessageHandler = ()=>{
+    if(msg.value.length >= MaxLength){
+        iziToast.warning({
+            transitionIn:'fadeInDown',
+            position:'topCenter',
+            title: '消息输入过长',
+            message: `最大消息为${MaxLength}`,
+        });
+        return
+    }
     if (socket.value && socket.value.readyState === WebSocket.OPEN) {
         const message = {
             type: 1,
@@ -68,19 +79,29 @@ const socket = ref<WebSocket | null>(null);
     socket.value = new WebSocket(wsurl);
     socket.value.onopen = () => {
         console.log('WebSocket连接已打开');
+        getHistoryMessage()
     };
     
     socket.value.onmessage = (event) => {
         const messageData = JSON.parse(event.data)
         if (messageData.code != 50004 && messageData.content) {
-            const message = {
-                type: 1, // Received message type
-                content: messageData.content,
-                sender:0
-            };
-
+            if(messageData.from == "me"){
+                const message = {
+                    type: 1, // Received message type
+                    content: messageData.content,
+                    sender:1
+                };
+                messages.value.push(message);
+            }
+            else{
+                const message = {
+                    type: 1, // Received message type
+                    content: messageData.content,
+                    sender:0
+                };
+                messages.value.push(message);
+            }
             // Add the message to the messages list
-            messages.value.push(message);
             console.log('接收到消息:', messageData.content);
         } 
         // console.log('接收到消息:', message);
@@ -96,6 +117,19 @@ const socket = ref<WebSocket | null>(null);
     };
 };
 connectWebSocket()
+
+const getHistoryMessage = ()=>{
+    if (socket.value && socket.value.readyState === WebSocket.OPEN) {
+        const message = {
+            type: 2,
+        };
+        socket.value.send(JSON.stringify(message));
+        console.log('发送消息:', msg.value);
+    } else {
+        console.error('WebSocket 未连接');
+    }
+}
+
 onBeforeUnmount(() => {
     if (socket.value) {
         socket.value.close();
