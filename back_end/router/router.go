@@ -19,7 +19,6 @@ func NewRouter() *gin.Engine {
 		//获取升级连接的请求
 		//v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
 		v1.GET("/ws", middleware.ParseTokenForWebsocket, middleware.CheckUserMiddleware, service.Handler)
-
 	}
 	v2 := r.Group("/student")
 	{
