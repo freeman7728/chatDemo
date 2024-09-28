@@ -1,9 +1,10 @@
-package service
+package WebsocketService
 
 import (
 	"chat/cache"
 	"chat/conf"
 	"chat/pkg/e"
+	"chat/service"
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -28,6 +29,7 @@ type ReplyMsg struct {
 
 type Client struct {
 	Uid    string
+	ToUid  string
 	ID     string
 	SendID string
 	Socket *websocket.Conn
@@ -40,7 +42,7 @@ type Broadcast struct {
 	Type    string `json:"type"`
 }
 
-type ClientManager struct {
+type RelationClientManager struct {
 	Clients   map[string]*Client
 	Broadcast chan *Broadcast
 	//Reply      chan *Client
@@ -48,14 +50,8 @@ type ClientManager struct {
 	Unregister chan *Client
 }
 
-type Message struct {
-	Sender    string `json:"sender,omitempty"`
-	Recipient string `json:"recipient,omitempty"`
-	Content   string `json:"content,omitempty"`
-}
-
-// Manager 包级变量，执行main函数之前就会进行初始化
-var Manager = ClientManager{
+// RelationClientManagerIns 包级变量，执行main函数之前就会进行初始化
+var RelationClientManagerIns = RelationClientManager{
 	Clients:   make(map[string]*Client), // 参与连接的用户，出于性能的考虑，需要设置最大连接数
 	Broadcast: make(chan *Broadcast),
 	Register:  make(chan *Client),
@@ -83,12 +79,13 @@ func Handler(c *gin.Context) {
 	//创建客户端对象，把连接赋予客户端对象
 	client := &Client{
 		Uid:    uid,
+		ToUid:  touid,
 		Socket: conn,
 		ID:     CreatId(uid, touid),
 		SendID: CreatId(touid, uid),
 		Send:   make(chan []byte),
 	}
-	Manager.Register <- client //把客户端发送到在线用户通道
+	RelationClientManagerIns.Register <- client //把客户端发送到在线用户通道
 	//对于每一个客户端连接，都要创建conn对客户端的读写
 	go client.Read()
 	go client.Write()
@@ -105,7 +102,7 @@ func Handler(c *gin.Context) {
 // conn从客户端读
 func (c *Client) Read() {
 	defer func() {
-		Manager.Unregister <- c
+		RelationClientManagerIns.Unregister <- c
 		_ = c.Socket.Close()
 	}()
 	//执行轮询
@@ -116,7 +113,7 @@ func (c *Client) Read() {
 		err := c.Socket.ReadJSON(sendMsg)
 		if err != nil {
 			log.Println("数据格式不正确")
-			Manager.Unregister <- c
+			RelationClientManagerIns.Unregister <- c
 			_ = c.Socket.Close()
 			return
 		}
@@ -147,12 +144,12 @@ func (c *Client) Read() {
 			}
 			log.Println(c.ID, "发送消息", sendMsg.Content)
 			//取出ReceiverId字段，发送到broadcast通道
-			Manager.Broadcast <- &Broadcast{
+			RelationClientManagerIns.Broadcast <- &Broadcast{
 				Client:  c,
 				Message: []byte(sendMsg.Content),
 			}
 		} else if sendMsg.Type == 2 { //拉取历史消息
-			results, _ := FindMany(conf.MongoDBName, c.SendID, c.ID)
+			results, _ := service.FindMany(conf.MongoDBName, c.SendID, c.ID)
 			if len(results) == 0 {
 				replyMsg := ReplyMsg{
 					Code:    e.WebsocketEnd,

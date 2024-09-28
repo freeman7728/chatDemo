@@ -64,7 +64,7 @@ func (r *RelationServ) DelRelation(relation model.Relation) (resp serializer.Res
 	return
 }
 
-// GetRelationServIns 获取好友列表
+// GetRelation  获取好友列表
 func (r *RelationServ) GetRelation(id int64) (resp serializer.Response) {
 	resp.Status = http.StatusOK
 	var relations model.Relation
