@@ -12,7 +12,7 @@ import (
 
 func (manager *RelationClientManager) Start() {
 	for {
-		fmt.Println("---------正在监听管道通信---------")
+		fmt.Println("---------正在监听关系管道通信---------")
 		select {
 		case conn := <-manager.Register:
 			fmt.Printf("有新的连接:%v\n", conn.Uid)

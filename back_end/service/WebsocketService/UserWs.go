@@ -1,16 +1,21 @@
 package WebsocketService
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	"net/http"
 )
 
+type UserClientMsg struct {
+	Uid string `json:"uid"`
+}
+
 type UserClient struct {
 	Uid    string
 	Socket *websocket.Conn
-	Send   chan []byte
+	Send   chan UserClientMsg
 }
 
 type UserClientManager struct {
@@ -28,7 +33,6 @@ var UserClientManagerIns = UserClientManager{
 }
 
 func UserWsHandler(c *gin.Context) {
-	//TODO id查不到
 	id, _ := c.Get("id")
 	conn, err := (&websocket.Upgrader{ //新建websocket对象
 		CheckOrigin: func(r *http.Request) bool {
@@ -42,10 +46,28 @@ func UserWsHandler(c *gin.Context) {
 	client := &UserClient{
 		Uid:    fmt.Sprintf("%v", id),
 		Socket: conn,
-		Send:   make(chan []byte),
+		Send:   make(chan UserClientMsg),
 	}
 	UserClientManagerIns.UserRegister <- client
 	go client.Write()
+	go client.Read()
+}
+
+func (c *UserClient) Read() {
+	defer func() {
+		_ = c.Socket.Close()
+		UserClientManagerIns.UserUnregister <- c
+		fmt.Println("logout")
+	}()
+	for {
+		c.Socket.PongHandler()
+		sendMsg := new(SendMsg)
+		//解析客户端发送到服务端的消息
+		err := c.Socket.ReadJSON(sendMsg)
+		if err != nil {
+			return
+		}
+	}
 }
 
 func (c *UserClient) Write() {
@@ -54,11 +76,15 @@ func (c *UserClient) Write() {
 	}()
 	for {
 		select {
-		case msg, ok := <-c.Send:
+		case m, ok := <-c.Send:
 			if !ok {
 
 			}
-			err := c.Socket.WriteMessage(websocket.TextMessage, msg)
+			msg, err := json.Marshal(m)
+			if err != nil {
+				return
+			}
+			err = c.Socket.WriteMessage(websocket.TextMessage, msg)
 			if err != nil {
 				return
 			}

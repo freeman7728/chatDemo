@@ -87,8 +87,8 @@ func Handler(c *gin.Context) {
 	}
 	RelationClientManagerIns.Register <- client //把客户端发送到在线用户通道
 	//对于每一个客户端连接，都要创建conn对客户端的读写
-	go client.Read()
 	go client.Write()
+	go client.Read()
 }
 
 /*
@@ -113,7 +113,6 @@ func (c *Client) Read() {
 		err := c.Socket.ReadJSON(sendMsg)
 		if err != nil {
 			log.Println("数据格式不正确")
-			RelationClientManagerIns.Unregister <- c
 			_ = c.Socket.Close()
 			return
 		}

@@ -15,6 +15,10 @@ type SendSortMsg struct {
 	Read     uint   `json:"read"`
 	CreateAt int64  `json:"create_at"`
 }
+type LatestUser struct {
+	Uid       string `json:"uid"`
+	StartTime int64  `json:"start_time"`
+}
 
 func InsertMsg(database string, id string, content string, read uint, expire int64) (err error) {
 	collection := conf.MongoDbClient.Database(database).Collection(id)
@@ -50,6 +54,41 @@ func FindMany(database string, sendId string, id string) (results []ws.Result, e
 	err = sendIdTimeCursor.All(context.TODO(), &resultsYou) // sendId 对面发过来的
 	err = idTimeCursor.All(context.TODO(), &resultsMe)      // Id 发给对面的
 	results, _ = AppendAndSort(resultsMe, resultsYou)
+	return
+}
+
+func FindLatest(database, id, toUid string) (l LatestUser) {
+	var resultsMe []ws.TrainerReader
+	var resultsYou []ws.TrainerReader
+	sendIdCollection := conf.MongoDbClient.Database(database).Collection(toUid + "->" + id)
+	idCollection := conf.MongoDbClient.Database(database).Collection(id + "->" + toUid)
+	sendIdTimeCursor, _ := sendIdCollection.Find(context.TODO(),
+		bson.D{}, // 查询条件，可以根据需要修改,
+		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetLimit(1),
+	)
+	idTimeCursor, _ := idCollection.Find(context.TODO(),
+		bson.D{}, // 查询条件，可以根据需要修改,
+		options.Find().SetSort(bson.D{{"startTime", -1}}),
+		options.Find().SetLimit(1),
+	)
+	_ = sendIdTimeCursor.All(context.TODO(), &resultsYou) // sendId 对面发过来的
+	_ = idTimeCursor.All(context.TODO(), &resultsMe)      // Id 发给对面的
+	var yt int64
+	var mt int64
+	if len(resultsYou) > 0 {
+		yt = resultsYou[0].StartTime
+	}
+	if len(resultsMe) > 0 {
+		mt = resultsMe[0].StartTime
+	}
+	if yt > mt {
+		l.Uid = toUid
+		l.StartTime = yt
+	} else {
+		l.Uid = toUid
+		l.StartTime = mt
+	}
 	return
 }
 

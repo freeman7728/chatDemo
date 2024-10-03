@@ -1,9 +1,12 @@
 package service
 
 import (
+	"chat/conf"
 	"chat/model"
 	"chat/serializer"
 	"net/http"
+	"slices"
+	"strconv"
 	"sync"
 )
 
@@ -78,8 +81,20 @@ func (r *RelationServ) GetRelation(id int64) (resp serializer.Response) {
 		resp.Msg = "好友列表为空"
 		return
 	}
+	sortedlist := make([]LatestUser, 0)
+	for _, relation := range relationList {
+		sortedlist = append(sortedlist, FindLatest(conf.MongoDBName, strconv.FormatInt(relation.Source, 10), strconv.FormatInt(relation.Target, 10)))
+	}
+	slices.SortFunc(sortedlist, func(a, b LatestUser) int {
+		return int(b.StartTime - a.StartTime)
+	})
+	resList := make([]model.Relation, 0)
+	for _, s := range sortedlist {
+		parseInt, _ := strconv.ParseInt(s.Uid, 10, 64)
+		resList = append(resList, model.Relation{Source: id, Target: parseInt})
+	}
 	var list RelationList
-	list.List = relationList
+	list.List = resList
 	resp.Data = list
 	resp.Msg = "success"
 	return
