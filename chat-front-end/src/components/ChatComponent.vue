@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-20 11:23:05
- * @LastEditTime: 2024-09-25 15:43:54
+ * @LastEditTime: 2024-10-08 11:17:32
  * @LastEditors: freeman7728
 -->
 <template>
@@ -41,12 +41,14 @@ import { ref,onBeforeUnmount } from 'vue';
 import { onUpdated } from 'vue';
 import {bu} from '@/plugins/axios';
 import iziToast from 'izitoast';
+import { useRelationStore } from '@/stores/relation';
 const route = useRoute()
 let query = toRef(route,'query')
 const MaxLength = 1000
 const msg = ref('')
 const messages = ref<{ type: number, content: string,sender:number }[]>([]);
 const containerRef = ref()
+const relationStore = useRelationStore()
 onUpdated(() => {
   containerRef.value.scrollTop = containerRef.value.scrollHeight
 })
@@ -69,6 +71,7 @@ const submitMessageHandler = ()=>{
         messages.value.push(message);
         socket.value.send(JSON.stringify(message));
         console.log('发送消息:', msg.value);
+        relationStore.getList()
     } else {
         console.error('WebSocket 未连接');
     }

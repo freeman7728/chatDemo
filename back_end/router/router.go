@@ -16,8 +16,6 @@ func NewRouter() *gin.Engine {
 	{
 		v1.POST("/register", api.UserApi{}.UserRegister)
 		v1.POST("/login", api.UserApi{}.UserLogin)
-		//获取升级连接的请求
-		//v1.GET("/ws", middleware.ParseToken, middleware.CheckUserMiddleware, service.Handler)
 		v1.GET("/ws", middleware.ParseTokenForWebsocket, middleware.CheckUserMiddleware, WebsocketService.Handler)
 		v1.GET("/userWebsocket", middleware.ParseTokenForWebsocket, WebsocketService.UserWsHandler)
 	}
@@ -31,14 +29,19 @@ func NewRouter() *gin.Engine {
 		relation.GET("/get-relation-list", middleware.ParseToken, api.GetRelationHandler)
 		relation.POST("del", middleware.ParseToken, api.DelRelationHandler)
 	}
-	testJwt := r.Group("/")
+	authJwt := r.Group("/")
 	{
-		testJwt.GET("/ping", middleware.ParseToken, func(c *gin.Context) {
+		authJwt.GET("/ping", middleware.ParseToken, func(c *gin.Context) {
 			id, _ := c.Get("id")
 			var resp serializer.Response
 			resp.Data = id
 			c.JSON(200, resp)
 		})
+	}
+	v3 := r.Group("/group")
+	{
+		v3.POST("/create", middleware.ParseToken, api.CreateGroupApi)
+		v3.POST("/addMember", middleware.ParseToken, api.AddGroupMemberApi)
 	}
 	return r
 }

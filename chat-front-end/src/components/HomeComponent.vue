@@ -2,7 +2,7 @@
  * @Description: 
  * @author: freeman7728
  * @Date: 2024-09-18 12:44:14
- * @LastEditTime: 2024-09-22 15:00:01
+ * @LastEditTime: 2024-10-08 11:14:30
  * @LastEditors: freeman7728
 -->
 <template>
@@ -62,6 +62,7 @@ import iziToast from 'izitoast';
 import { useRelationStore } from '@/stores/relation';
 import { onBeforeMount } from 'vue';
 import { ref } from 'vue';
+import { bu } from '@/plugins/axios';
 const store = useUserStore()
 const relationStore = useRelationStore()
 let localId = ref<string | null>('')
@@ -103,6 +104,32 @@ onBeforeMount(async () => {
     router.push('/error');
   }
 });
+
+const socket = ref<WebSocket | null>(null);
+    const connectWebSocket = () => {
+    const wsurl = `${bu}/userWebsocket?token=${localStorage.getItem('token')}`
+    socket.value = new WebSocket(wsurl);
+    socket.value.onopen = () => {
+        console.log('UserWebSocket连接已打开');
+    };
+    
+    socket.value.onmessage = (event) => {
+        const messageData = JSON.parse(event.data)
+        console.log('接收到消息:', messageData.uid);
+        relationStore.getList()
+        // console.log('接收到消息:', message);
+        // 这里可以更新消息列表
+    };
+
+    socket.value.onclose = () => {
+        console.log('WebSocket连接已关闭');
+    };
+
+    socket.value.onerror = (error) => {
+        console.error('WebSocket发生错误:', error);
+    };
+};
+connectWebSocket()
 </script>
 
 <style>

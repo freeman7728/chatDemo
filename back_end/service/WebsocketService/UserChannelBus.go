@@ -26,6 +26,7 @@ func (manager *UserClientManager) Start() {
 			if _, ok := UserClientManagerIns.Clients[relationClient.ToUid]; !ok {
 				log.Info("对方不在线")
 			} else {
+				//消息的封装
 				msg := UserClientMsg{Uid: relationClient.Uid}
 				UserClientManagerIns.Clients[relationClient.ToUid].Send <- msg
 				log.Info("对方在线")
