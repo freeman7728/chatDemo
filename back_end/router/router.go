@@ -42,6 +42,7 @@ func NewRouter() *gin.Engine {
 	{
 		v3.POST("/create", middleware.ParseToken, api.CreateGroupApi)
 		v3.POST("/addMember", middleware.ParseToken, api.AddGroupMemberApi)
+		v3.GET("", middleware.ParseTokenForWebsocket, WebsocketService.GroupHandler)
 	}
 	return r
 }

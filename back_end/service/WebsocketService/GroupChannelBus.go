@@ -2,19 +2,26 @@ package WebsocketService
 
 import (
 	"fmt"
+	log "github.com/sirupsen/logrus"
 )
 
 func (manager *GroupClientManager) Start() {
 	for {
 		fmt.Println("---------正在监听创建群聊管道通信---------")
 		select {
-		case gid := <-manager.Register:
-			client := &GroupClient{
-				GroupId:       gid,
-				Broadcast:     make(chan *Broadcast),
-				OnlineUserMap: make(map[string]ConnGroupClient),
-			}
-			manager.Clients[gid] = client
+		case gid := <-manager.UnRegister:
+			fmt.Println("---------群聊", gid, "销毁---------")
+			delete(manager.Clients, gid)
+		}
+	}
+}
+
+func (manager *GroupClient) Start() {
+	for {
+		select {
+		case conn := <-manager.Register:
+			manager.OnlineUserMap[conn.Uid] = conn
+			log.Info("用户 ", conn.Uid, " 加入 ", conn.GroupId, " 群聊", "目前", len(manager.OnlineUserMap), "人")
 		}
 	}
 }

@@ -12,8 +12,10 @@ import (
 
 type GroupClient struct {
 	GroupId       string
-	OnlineUserMap map[string]ConnGroupClient
-	Broadcast     chan *Broadcast
+	Register      chan *ConnGroupClient
+	UnRegister    chan *ConnGroupClient
+	OnlineUserMap map[string]*ConnGroupClient
+	Broadcast     chan *GroupBroadcast
 }
 
 type ConnGroupClient struct {
@@ -32,7 +34,15 @@ type GroupClientManager struct {
 }
 
 var GroupClientManagerIns = GroupClientManager{
-	Clients: make(map[string]*GroupClient),
+	Clients:    make(map[string]*GroupClient),
+	Register:   make(chan string),
+	UnRegister: make(chan string),
+}
+
+type GroupBroadcast struct {
+	Client  *ConnGroupClient
+	Message []byte
+	Type    string `json:"type"`
 }
 
 func GroupHandler(c *gin.Context) {
@@ -49,7 +59,16 @@ func GroupHandler(c *gin.Context) {
 		return
 	}
 	if _, ok := GroupClientManagerIns.Clients[groupId]; !ok {
-		GroupClientManagerIns.Register <- groupId
+		client := &GroupClient{
+			GroupId:       groupId,
+			Broadcast:     make(chan *GroupBroadcast),
+			OnlineUserMap: make(map[string]*ConnGroupClient),
+			Register:      make(chan *ConnGroupClient),
+			UnRegister:    make(chan *ConnGroupClient),
+		}
+		GroupClientManagerIns.Clients[groupId] = client
+		fmt.Println("---------群聊", groupId, "创建成功---------")
+		go client.Start()
 	}
 	//创建群聊客户端对象，把连接赋予客户端对象
 	client := &ConnGroupClient{
@@ -59,7 +78,7 @@ func GroupHandler(c *gin.Context) {
 		ID:      CreatId(uid, groupId),
 		Send:    make(chan []byte),
 	}
-	//RelationClientManagerIns.Register <- client //把客户端发送到在线用户通道
+	GroupClientManagerIns.Clients[groupId].Register <- client //把客户端发送到在线用户通道
 	//对于每一个客户端连接，都要创建conn对客户端的读写
 	go client.Write()
 	go client.Read()
@@ -69,6 +88,10 @@ func GroupHandler(c *gin.Context) {
 func (c *ConnGroupClient) Read() {
 	defer func() {
 		_ = c.Socket.Close()
+		delete(GroupClientManagerIns.Clients[c.GroupId].OnlineUserMap, c.Uid)
+		if len(GroupClientManagerIns.Clients[c.GroupId].OnlineUserMap) <= 0 {
+			GroupClientManagerIns.UnRegister <- c.GroupId
+		}
 	}()
 	//执行轮询
 	for {
@@ -77,7 +100,7 @@ func (c *ConnGroupClient) Read() {
 		//解析客户端发送到服务端的消息
 		err := c.Socket.ReadJSON(sendMsg)
 		if err != nil {
-			log.Println("数据格式不正确")
+			log.Println("用户离开群聊")
 			_ = c.Socket.Close()
 			return
 		}
@@ -91,11 +114,17 @@ func (c *ConnGroupClient) Read() {
 				_ = c.Socket.WriteMessage(websocket.TextMessage, msg)
 				continue
 			}
-			log.Println(c.ID, "发送消息", sendMsg.Content)
-			//取出ReceiverId字段，发送到broadcast通道
-			//TODO
+			log.Println(c.ID, "群聊发送消息", sendMsg.Content)
+			//TODO 创建broadcast对象，送过去
+			broadcast := &GroupBroadcast{
+				Client:  c,
+				Message: []byte(sendMsg.Content),
+				Type:    "1",
+			}
+			GroupClientManagerIns.Clients[c.GroupId].Broadcast <- broadcast
 		} else if sendMsg.Type == 2 { //拉取历史消息
 			//TODO
+
 		}
 	}
 }
