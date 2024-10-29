@@ -4,18 +4,16 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8eeeb4a6-e3cf-406b-84b2-8ad145d6267b" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/back_end/api/groupApi.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back_end/api/groupMemberApi.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back_end/model/group.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back_end/model/groupMember.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back_end/service/GroupMemberService.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back_end/service/GroupService.go" afterDir="false" />
+    <list default="true" id="05575083-78cd-4066-90b2-a73f30cf52e6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/back_end/service/WebsocketService/GroupChannelBus.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/back_end/service/WebsocketService/GroupWs.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/chatDemo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/chatDemo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/router/router.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/router/router.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back_end/service/WebsocketService/UserChannelBus.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/WebsocketService/UserChannelBus.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/ChatComponent.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" beforeDir="false" afterPath="$PROJECT_DIR$/chat-front-end/src/components/HomeComponent.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/model/initDb.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/model/initDb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/service/GroupMemberService.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/GroupMemberService.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/back_end/service/userService.go" beforeDir="false" afterPath="$PROJECT_DIR$/back_end/service/userService.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +35,7 @@
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2lwq1e5sSHaNRVjB5a1cS61X5hw" />
+  <component name="ProjectId" id="2nBQhIw5neZ8uzboOEOwL3CIG0O" />
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
   </component>
@@ -48,7 +46,6 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
-    &quot;Go Build.go build main.go (1).executor&quot;: &quot;Run&quot;,
     &quot;Go Build.go build main.go.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
@@ -61,18 +58,11 @@
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Administrator&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.keymap&quot;
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\GoCode\chatDemo\back_end\service\WebsocketService" />
-      <recent name="E:\GoCode\chatDemo\back_end" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Go Build.go build main.go (1)">
-    <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager">
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="chatDemo" />
       <working_directory value="$PROJECT_DIR$/back_end" />
       <kind value="FILE" />
@@ -80,18 +70,8 @@
       <filePath value="$PROJECT_DIR$/back_end/cmd/main.go" />
       <method v="2" />
     </configuration>
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="chatDemo" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <package value="chat" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$/cmd/main.go" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Go Build.go build main.go (1)" />
         <item itemvalue="Go Build.go build main.go" />
       </list>
     </recent_temporary>
@@ -110,21 +90,5 @@
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/back_end/service/WebsocketService/UserWs.go</url>
-          <line>62</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/back_end/model/user.go</url>
-          <line>26</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

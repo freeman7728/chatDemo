@@ -3,6 +3,8 @@ package service
 import (
 	"chat/model"
 	"chat/serializer"
+	"errors"
+	"gorm.io/gorm"
 	"net/http"
 	"sync"
 )
@@ -32,9 +34,11 @@ func (g *GroupMemberServ) AddGroupMember(m model.GroupMember) (resp serializer.R
 	err := m.AddGroupMember()
 	resp.Status = http.StatusOK
 	if err != nil {
+		resp.Msg = "内部错误"
+		if errors.Is(err, gorm.ErrDuplicatedKey) {
+			resp.Msg = "不可重复加入群聊"
+		}
 		resp.Status = http.StatusInternalServerError
-		//resp.Error = err.Error()
-		resp.Msg = "不可重复加入群聊"
 		return
 	}
 	resp.Msg = "群聊加入成功"

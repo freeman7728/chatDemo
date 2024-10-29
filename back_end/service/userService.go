@@ -26,7 +26,7 @@ func (u *UserService) UserRegisterService() (resp serializer.Response) {
 		不存在则加密密码且创建账号
 	*/
 	var user model.User
-	var count int
+	var count int64
 	code := e.SUCCESS
 	model.DB.Model(&model.User{}).Where("user_name=?", u.UserName).Count(&count)
 	if count == 1 {
