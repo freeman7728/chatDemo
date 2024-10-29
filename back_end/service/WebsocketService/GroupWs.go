@@ -23,7 +23,7 @@ type ConnGroupClient struct {
 	GroupId string
 	Socket  *websocket.Conn
 	ID      string
-	Send    chan []byte
+	Send    chan *GroupBroadcast
 	Name    string
 }
 
@@ -76,7 +76,7 @@ func GroupHandler(c *gin.Context) {
 		Uid:     uid,
 		Socket:  conn,
 		ID:      CreatId(uid, groupId),
-		Send:    make(chan []byte),
+		Send:    make(chan *GroupBroadcast),
 	}
 	GroupClientManagerIns.Clients[groupId].Register <- client //把客户端发送到在线用户通道
 	//对于每一个客户端连接，都要创建conn对客户端的读写
@@ -124,7 +124,6 @@ func (c *ConnGroupClient) Read() {
 			GroupClientManagerIns.Clients[c.GroupId].Broadcast <- broadcast
 		} else if sendMsg.Type == 2 { //拉取历史消息
 			//TODO
-
 		}
 	}
 }
@@ -142,11 +141,12 @@ func (c *ConnGroupClient) Write() {
 				_ = c.Socket.WriteMessage(websocket.CloseMessage, []byte{})
 				return
 			}
-			log.Println(c.ID, "接受消息:", string(message))
+			log.Println(c.ID, "接受消息:", string(message.Message))
 			replyMsg := ReplyMsg{
+				From: message.Client.Uid,
 				Code: e.WebsocketSuccessMessage,
 				//fmt包格式化字符串
-				Content: fmt.Sprintf("%s", string(message)),
+				Content: fmt.Sprintf("%s", string(message.Message)),
 			}
 			msg, _ := json.Marshal(replyMsg)
 			_ = c.Socket.WriteMessage(websocket.TextMessage, msg)

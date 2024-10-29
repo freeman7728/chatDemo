@@ -22,6 +22,10 @@ func (manager *GroupClient) Start() {
 		case conn := <-manager.Register:
 			manager.OnlineUserMap[conn.Uid] = conn
 			log.Info("用户 ", conn.Uid, " 加入 ", conn.GroupId, " 群聊", "目前", len(manager.OnlineUserMap), "人")
+		case broadcast := <-manager.Broadcast:
+			for _, conn := range manager.OnlineUserMap {
+				conn.Send <- broadcast
+			}
 		}
 	}
 }
